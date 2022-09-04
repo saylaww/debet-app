@@ -76,7 +76,11 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("456"),
                     "+123456789",
 //                    bazar,
-                    user
+                    user,
+                    true,
+                    true,
+                    true,
+                    true
             ));
             userRepository.save(new User(
                     "Orash",
@@ -85,7 +89,11 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("789"),
                     "+897456213",
 //                    bazar,
-                    admin
+                    admin,
+                    true,
+                    true,
+                    true,
+                    true
             ));
 
 
