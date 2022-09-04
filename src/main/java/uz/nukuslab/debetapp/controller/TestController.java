@@ -34,10 +34,10 @@ public class TestController {
     }
 
 
-//    @GetMapping("/test")
-//    public String test(){
-//        return "TEST VALUE";
-//    }
+    @GetMapping("/test")
+    public String test(){
+        return "TEST VALUE";
+    }
 //
 //    @GetMapping("/")
 //    public String index(){
