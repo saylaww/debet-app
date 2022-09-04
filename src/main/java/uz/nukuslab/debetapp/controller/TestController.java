@@ -36,7 +36,7 @@ public class TestController {
 
     @GetMapping("/test")
     public String test(){
-        return "TEST VALUE";
+        return "TEST VALUE11";
     }
 //
 //    @GetMapping("/")
