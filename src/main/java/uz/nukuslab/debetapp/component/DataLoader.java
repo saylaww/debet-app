@@ -69,7 +69,11 @@ public class DataLoader implements CommandLineRunner {
                     passwordEncoder.encode("123"),
                     "+998974748061",
 //                    nukuslab_llc,
-                    sAdmin
+                    sAdmin,
+                    true,
+                    true,
+                    true,
+                    true
             ));
             userRepository.save(new User(
                     "Jaras",
