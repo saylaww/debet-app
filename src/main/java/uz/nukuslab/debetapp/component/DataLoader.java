@@ -47,6 +47,8 @@ public class DataLoader implements CommandLineRunner {
                     RoleName.USER
             ));
 
+
+//            klklkk
 //            Company nukuslab_llc = companyRepository.save(new Company(
 //                    "Nukuslab",
 //                    true
