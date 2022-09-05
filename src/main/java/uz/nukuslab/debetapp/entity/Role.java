@@ -26,6 +26,12 @@ public class Role extends AbsEntity implements GrantedAuthority {
     }
 
 
+    public RoleName getRoleName() {
+        return roleName;
+    }
 
+    public void setRoleName(RoleName roleName) {
+        this.roleName = roleName;
+    }
 }
 
