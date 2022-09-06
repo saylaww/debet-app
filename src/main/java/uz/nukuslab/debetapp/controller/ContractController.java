@@ -30,9 +30,8 @@ public class ContractController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
-    @GetMapping("/calc")
+    @PostMapping("/calc")
     public Object calc(@RequestBody Data data, @Paydalaniwshi User usr){
-        System.out.println(usr);
 
         ResponseData resData = new ResponseData(
                 data.getPart(),
@@ -42,7 +41,6 @@ public class ContractController {
                 data.getSumma() / 100 * data.getPercent()
         );
 
-//        double san = data.getSumma() / 100 * 6;
         return resData;
     }
 
