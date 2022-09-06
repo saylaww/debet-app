@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ContractDto {
 
-    private Long productId;
+    private String productName;
 
     private Long workerId;
 

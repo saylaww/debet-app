@@ -21,8 +21,11 @@ import javax.persistence.ManyToOne;
 public class Contract extends AbsEntity {
 
 //    @JoinColumn(nullable = false)
-    @ManyToOne
-    private Product product;
+//    @ManyToOne
+//    private Product product;
+
+    @Column(nullable = false)
+    private String productName;
 
 //    @JoinColumn(nullable = false)
     @ManyToOne
@@ -47,13 +50,12 @@ public class Contract extends AbsEntity {
 
     private boolean enabled = false;
 
-    public Contract(Product product, User worker, double price, Client client, double percent, Integer part) {
-        this.product = product;
+    public Contract(String productName, User worker, double price, Client client, double percent, Integer part) {
+        this.productName = productName;
         this.worker = worker;
         this.price = price;
         this.client = client;
         this.percent = percent;
         this.part = part;
     }
-
 }

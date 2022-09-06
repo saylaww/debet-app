@@ -44,11 +44,11 @@ public class ContractService {
     }
 
     public ApiResponse addContract(ContractDto contractDto) {
-        Optional<Product> byProd = productRepository.findById(contractDto.getProductId());
-        if (!byProd.isPresent()){
-            return new ApiResponse("Bunday id li product tabilmadi!!!", false);
-        }
-        Product product = byProd.get();
+//        Optional<Product> byProd = productRepository.findById(contractDto.getProductId());
+//        if (!byProd.isPresent()){
+//            return new ApiResponse("Bunday id li product tabilmadi!!!", false);
+//        }
+//        Product product = byProd.get();
 
         Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
         if (!byWorker.isPresent()){
@@ -63,7 +63,7 @@ public class ContractService {
         Client client = byClient.get();
 
         Contract contract = new Contract(
-                product,
+                contractDto.getProductName(),
                 user,
                 contractDto.getPrice(),
                 client,
