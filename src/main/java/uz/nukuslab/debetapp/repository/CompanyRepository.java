@@ -32,10 +32,13 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
     @Override
     Optional<Company> findById(Long integer);
 
-    @CheckRole
-    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
-    @Override
-    Iterable<Company> findAll();
+//    @CheckRole
+//    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+//    @Override
+//    Iterable<Company> findAll();
+
+
+
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")

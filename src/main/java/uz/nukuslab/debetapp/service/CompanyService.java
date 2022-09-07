@@ -3,9 +3,12 @@ package uz.nukuslab.debetapp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.entity.Company;
+import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
 import uz.nukuslab.debetapp.repository.CompanyRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -36,5 +39,15 @@ public class CompanyService {
         company.setActive(true);
         companyRepository.save(company);
         return new ApiResponse("Company blokltan SHIG'ARILDI!!!", true);
+    }
+
+    public ApiResponse getAllCompany() {
+        Iterable<Company> all = companyRepository.findAll();
+        List<Company> companies = new ArrayList<>();
+        for (Company company : all) {
+            companies.add(company);
+        }
+
+        return new ApiResponse("Companylar listi:", true, companies);
     }
 }
