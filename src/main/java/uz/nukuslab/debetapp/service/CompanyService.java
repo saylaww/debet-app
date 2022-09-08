@@ -50,4 +50,14 @@ public class CompanyService {
 
         return new ApiResponse("Companylar listi:", true, companies);
     }
+
+    public ApiResponse byId(Long id) {
+        Optional<Company> byId = companyRepository.findById(id);
+        if (!byId.isPresent()){
+            return new ApiResponse("Bunday id li kompaniya tabilmadi", false);
+        }
+        Company company = byId.get();
+
+        return new ApiResponse("Company : ", true, company);
+    }
 }

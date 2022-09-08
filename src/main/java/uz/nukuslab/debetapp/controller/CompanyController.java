@@ -22,6 +22,13 @@ public class CompanyController {
     @Autowired
     CompanyService companyService;
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+    @PostMapping("/findById/{id}")
+    public HttpEntity<?> findById(@PathVariable Long id){
+        ApiResponse apiResponse = companyService.byId(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
