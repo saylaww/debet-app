@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.nukuslab.debetapp.annotation.CheckRole;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.payload.UserDto;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.UserService;
 
@@ -20,6 +21,15 @@ public class UserController {
 
     @Autowired
     UserService userService;
+
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
+    @PostMapping("/addUser")
+    public HttpEntity<?> addUser(@RequestBody UserDto userDto){
+        ApiResponse apiResponse = userService.addUser(userDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")

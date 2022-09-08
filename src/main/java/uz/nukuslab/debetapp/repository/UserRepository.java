@@ -17,6 +17,9 @@ import java.util.Optional;
 @RepositoryRestResource(path = "user", excerptProjection = UserProjection.class)
 public interface UserRepository extends JpaRepository<User, Long> {
 
+    boolean existsByUsername(String username);
+
+
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     @Override

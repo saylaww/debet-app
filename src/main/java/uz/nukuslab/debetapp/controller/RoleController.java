@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.nukuslab.debetapp.annotation.CheckRole;
+import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.repository.UserRepository;
 import uz.nukuslab.debetapp.service.RoleService;
 
 @RestController
@@ -17,6 +19,8 @@ public class RoleController {
 
     @Autowired
     RoleService roleService;
+//    @Autowired
+//    UserRepository userRepository;
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")

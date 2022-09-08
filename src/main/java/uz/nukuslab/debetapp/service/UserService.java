@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.DebetAppApplication;
 import uz.nukuslab.debetapp.entity.Company;
+import uz.nukuslab.debetapp.entity.Role;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.entity.enums.RoleName;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.payload.UserDto;
+import uz.nukuslab.debetapp.repository.CompanyRepository;
+import uz.nukuslab.debetapp.repository.RoleRepository;
 import uz.nukuslab.debetapp.repository.UserRepository;
 
 import java.util.List;
@@ -19,6 +23,10 @@ public class UserService {
     UserRepository userRepository;
     @Autowired
     DebetAppApplication debetAppApplication;
+    @Autowired
+    CompanyRepository companyRepository;
+    @Autowired
+    RoleRepository roleRepository;
 
     public ApiResponse getUsersMyCompany(User user) {
         Company company = user.getCompany();
@@ -95,4 +103,38 @@ check(user);
 
     }
 
+    public ApiResponse addUser(UserDto userDto) {
+
+        boolean b = userRepository.existsByUsername(userDto.getUsername());
+        if (!b){
+            return new ApiResponse("Bunday id username tabilmadi!!!", false);
+        }
+        Optional<Company> byId = companyRepository.findById(userDto.getCompanyId());
+        if (!byId.isPresent()){
+            return new ApiResponse("Bunday id li kompaniya tabilmadi!!!", false);
+        }
+        Company company = byId.get();
+
+        Optional<Role> byRole = roleRepository.findById(userDto.getRoleId());
+        if(!byRole.isPresent()){
+            return new ApiResponse("Bunday id li role tabilmadi!!!", false);
+        }
+        Role role = byRole.get();
+
+        User user = new User(
+                userDto.getFirstName(),
+                userDto.getLastName(),
+                userDto.getUsername(),
+                userDto.getPassword(),
+                userDto.getUsername(),
+                company,
+                role
+        );
+        try {
+            User save = userRepository.save(user);
+            return new ApiResponse("User saqlandi", true, save);
+        }catch (Exception e) {
+            return new ApiResponse("User saqlawda qa'telik!!!", false);
+        }
+    }
 }
