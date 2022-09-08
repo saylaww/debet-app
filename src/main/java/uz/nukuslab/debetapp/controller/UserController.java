@@ -25,6 +25,14 @@ public class UserController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
+    @GetMapping("/getALlUser")
+    public HttpEntity<?> getAllUser(){
+        ApiResponse apiResponse = userService.getAllUser();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
     @PostMapping("/addUser")
     public HttpEntity<?> addUser(@RequestBody UserDto userDto){
         ApiResponse apiResponse = userService.addUser(userDto);

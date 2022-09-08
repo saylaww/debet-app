@@ -137,4 +137,9 @@ check(user);
             return new ApiResponse("User saqlawda qa'telik!!!", false);
         }
     }
+
+    public ApiResponse getAllUser() {
+        List<User> all = userRepository.findAll();
+        return new ApiResponse("all users", true, all);
+    }
 }
