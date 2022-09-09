@@ -130,12 +130,8 @@ check(user);
                 company,
                 role
         );
-        try {
-            User save = userRepository.save(user);
-            return new ApiResponse("User saqlandi", true, save);
-        }catch (Exception e) {
-            return new ApiResponse("User saqlawda qa'telik!!!", false);
-        }
+        userRepository.save(user);
+            return new ApiResponse("User saqlandi", true);
     }
 
     public ApiResponse getAllUser() {
