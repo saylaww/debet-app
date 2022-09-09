@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.entity.Client;
 import uz.nukuslab.debetapp.entity.Company;
 import uz.nukuslab.debetapp.entity.User;
+import uz.nukuslab.debetapp.entity.enums.RoleName;
 import uz.nukuslab.debetapp.payload.ApiResponse;
 import uz.nukuslab.debetapp.payload.ClientDto;
 import uz.nukuslab.debetapp.repository.ClientRepository;
@@ -32,23 +33,36 @@ public class ClientService {
     }
 
     public ApiResponse add(User user, ClientDto clientDto) {
-//        Optional<Company> byId = companyRepository.findById(clientDto.getCompanyId());
-//        if (!byId.isPresent()){
-//            return new ApiResponse("Bunday company id bazada tabilmadi!!!", false);
-//        }
-//        Company company = byId.get();
 
         boolean b = clientRepository.existsByPhone(clientDto.getPhone());
         if (!b){
             return new ApiResponse("Bunday telefon nomer bazada bar!!!", false);
         }
-        Client client = new Client(
-                clientDto.getFirstName(),
-                clientDto.getLastName(),
-                clientDto.getPhone(),
-                user.getCompany()
-        );
-        clientRepository.save(client);
+
+        Client client = new Client();
+
+        if(user.getRole().getRoleName().name().equals(RoleName.SUPER_ADMIN)){
+            Optional<Company> byId = companyRepository.findById(clientDto.getCompanyId());
+            if (!byId.isPresent()){
+                return new ApiResponse("Bunday company id bazada tabilmadi!!!", false);
+            }
+            Company company = byId.get();
+            client.setCompany(company);
+
+            client.setFirstName(clientDto.getFirstName());
+            client.setLastName(clientDto.getLastName());
+            client.setPhone(clientDto.getPhone());
+            client.setCompany(user.getCompany());
+
+            clientRepository.save(client);
+        }else {
+            client.setFirstName(clientDto.getFirstName());
+            client.setLastName(clientDto.getLastName());
+            client.setPhone(clientDto.getPhone());
+            client.setCompany(user.getCompany());
+
+            clientRepository.save(client);
+        }
 
         return new ApiResponse("Client saqlandi", true);
     }
