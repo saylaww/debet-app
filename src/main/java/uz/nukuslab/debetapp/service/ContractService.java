@@ -15,7 +15,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.YearMonth;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -43,18 +45,18 @@ public class ContractService {
         this.companyRepository = companyRepository;
     }
 
-    public ApiResponse addContract(ContractDto contractDto) {
+    public ApiResponse addContract(ContractDto contractDto, User user) {
 //        Optional<Product> byProd = productRepository.findById(contractDto.getProductId());
 //        if (!byProd.isPresent()){
 //            return new ApiResponse("Bunday id li product tabilmadi!!!", false);
 //        }
 //        Product product = byProd.get();
 
-        Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
-        if (!byWorker.isPresent()){
-            return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
-        }
-        User user = byWorker.get();
+//        Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
+//        if (!byWorker.isPresent()){
+//            return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
+//        }
+//        User user = byWorker.get();
 
         Optional<Client> byClient = clientRepository.findById(contractDto.getClientId());
         if (!byClient.isPresent()){
@@ -73,13 +75,29 @@ public class ContractService {
 
         Contract savedContract = contractRepository.save(contract);
 
+
+
         List<Debet> debetList = new ArrayList<>();
+
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        int dayOfMonth = localDate.getDayOfMonth();
+        int month = localDate.getMonthValue();
+        int year = localDate.getYear();
+
         for (int i = 0; i < contractDto.getPart(); i++) {
+            Month monthName = Month.of(month);
+            if (month > 12){
+                year++;
+                month = 1;
+            }
             debetList.add(new Debet(
-                    "month",
+                    dayOfMonth + " - " + monthName.toString() + " - " + year,
                     contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
                     contract
             ));
+            month++;
         }
 
         debetRepository.saveAll(debetList);
