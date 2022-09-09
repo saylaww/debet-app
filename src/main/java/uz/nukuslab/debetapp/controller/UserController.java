@@ -58,8 +58,8 @@ public class UserController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
-    @PutMapping("/blockAllUser")
-    public HttpEntity<?> blockAllUser(@RequestParam Long id, @RequestBody User user){
+    @PutMapping("/blockAllUser/{id}")
+    public HttpEntity<?> blockAllUser(@PathVariable Long id, @RequestBody User user){
         ApiResponse apiResponse = userService.blockAllUser(user,id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
