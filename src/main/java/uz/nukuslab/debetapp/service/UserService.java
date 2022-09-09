@@ -151,6 +151,7 @@ check(user);
 
         User user1 = userRepository.findById(id).get();
         user1.setEnabled(user.isEnabled());
+        user1.setAccountNonExpired(user.isAccountNonExpired());
         try {
             userRepository.save(user1);
             return new ApiResponse("User bloklandi!!!", true);
