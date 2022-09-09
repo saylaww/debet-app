@@ -138,4 +138,27 @@ check(user);
         List<User> all = userRepository.findAll();
         return new ApiResponse("all users", true, all);
     }
+
+    public ApiResponse blockAllUser(User user, Long id) {
+//        User usr = userRepository.findByIdAndCompany_IdAndRole_RoleNameAndCompany_Active(id, user.getCompany().getId(), RoleName.USER, true);
+//        usr.setEnabled(false);
+//        try {
+//            userRepository.save(usr);
+//            return new ApiResponse("User bloklandi!!!", true);
+//        }catch (Exception e) {
+//            return new ApiResponse("Qa'telik", false);
+//        }
+
+        User user1 = userRepository.findById(id).get();
+        user1.setEnabled(false);
+        try {
+            userRepository.save(user1);
+            return new ApiResponse("User bloklandi!!!", true);
+        }catch (Exception e) {
+            return new ApiResponse("Qa'telik", false);
+        }
+
+
+//        return null;
+    }
 }
