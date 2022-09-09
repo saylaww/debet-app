@@ -150,7 +150,7 @@ check(user);
 //        }
 
         User user1 = userRepository.findById(id).get();
-        user1.setEnabled(false);
+        user1.setEnabled(user.isEnabled());
         try {
             userRepository.save(user1);
             return new ApiResponse("User bloklandi!!!", true);

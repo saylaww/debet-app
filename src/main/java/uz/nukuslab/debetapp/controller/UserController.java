@@ -12,6 +12,7 @@ import uz.nukuslab.debetapp.payload.UserDto;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.UserService;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.UUID;
 
 @CrossOrigin
@@ -58,8 +59,8 @@ public class UserController {
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
     @PutMapping("/blockAllUser")
-    public HttpEntity<?> blockAllUser(@RequestParam Long id, @Paydalaniwshi User user){
-        ApiResponse apiResponse = userService.blockAllUser(user, id);
+    public HttpEntity<?> blockAllUser(@RequestParam Long id, @RequestBody User user){
+        ApiResponse apiResponse = userService.blockAllUser(user,id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
