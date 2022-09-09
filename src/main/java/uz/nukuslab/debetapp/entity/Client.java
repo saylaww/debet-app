@@ -9,6 +9,7 @@ import uz.nukuslab.debetapp.payload.AbsEntity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -26,6 +27,9 @@ public class Client extends AbsEntity {
 
     @Column(nullable = false, unique = true)
     private String phone;
+
+    @ManyToOne
+    private Company company;
 
 
 }

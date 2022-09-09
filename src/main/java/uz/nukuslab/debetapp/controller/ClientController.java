@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import uz.nukuslab.debetapp.annotation.CheckRole;
+import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.ClientService;
 
 @RestController
@@ -23,6 +25,14 @@ public class ClientController {
     @GetMapping("/getAllClient")
     public HttpEntity<?> getAllClient(){
         ApiResponse apiResponse = clientService.getAll();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @GetMapping("/getAllMyClient")
+    public HttpEntity<?> getAllMyClient(@Paydalaniwshi User user){
+        ApiResponse apiResponse = clientService.getMyAll(user);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
