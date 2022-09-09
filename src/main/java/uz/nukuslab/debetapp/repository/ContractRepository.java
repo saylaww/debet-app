@@ -55,4 +55,6 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     List<Contract> findByCreatedAtBetween(Timestamp createdAt, Timestamp createdAt2);
 
+
+    List<Contract> findByWorkerId(Long worker_id);
 }
