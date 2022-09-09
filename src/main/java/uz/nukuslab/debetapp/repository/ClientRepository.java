@@ -16,5 +16,9 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findByCompany_Id(Long company_id);
 
+    boolean existsByPhone(String phone);
+
+
+
 
 }

@@ -4,12 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import uz.nukuslab.debetapp.annotation.CheckRole;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.payload.ClientDto;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.ClientService;
 
@@ -19,6 +18,15 @@ public class ClientController {
 
     @Autowired
     ClientService clientService;
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/add")
+    HttpEntity<?> add(@RequestBody ClientDto clientDto, @Paydalaniwshi User user){
+        ApiResponse apiResponse = clientService.add(user, clientDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
