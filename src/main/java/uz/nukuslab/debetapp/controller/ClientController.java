@@ -29,7 +29,7 @@ public class ClientController {
 
 
     @CheckRole
-    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','USER')")
     @GetMapping("/getAllClient")
     public HttpEntity<?> getAllClient(){
         ApiResponse apiResponse = clientService.getAll();
