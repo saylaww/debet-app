@@ -23,6 +23,13 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @GetMapping("/getUser")
+    public HttpEntity<?> getUser(@Paydalaniwshi User user){
+        ApiResponse apiResponse = new ApiResponse("User", true, user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
