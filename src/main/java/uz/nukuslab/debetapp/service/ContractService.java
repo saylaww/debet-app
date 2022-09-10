@@ -88,16 +88,21 @@ public class ContractService {
 
         for (int i = 0; i < contractDto.getPart(); i++) {
             Month monthName = Month.of(month);
-            if (month > 12){
-                year++;
-                month = 1;
-            }
+
             debetList.add(new Debet(
                     dayOfMonth + " - " + monthName.toString() + " - " + year,
                     contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
                     contract
             ));
-            month++;
+            boolean b = true;
+            if (month == 12){
+                year++;
+                month = 1;
+                b = false;
+            }
+            if (b) {
+                month++;
+            }
         }
 
         debetRepository.saveAll(debetList);
