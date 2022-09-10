@@ -111,8 +111,8 @@ check(user);
         User user1 = new User();
 
         boolean b = userRepository.existsByUsername(userDto.getUsername());
-        if (!b){
-            return new ApiResponse("Bunday id username tabilmadi!!!", false);
+        if (b){
+            return new ApiResponse("Bunday username bazada bar!!!", false);
         }
 
         Optional<Role> byRole = roleRepository.findById(userDto.getRoleId());
@@ -149,7 +149,7 @@ check(user);
             user1.setFirstName(userDto.getFirstName());
             user1.setLastName(userDto.getLastName());
             user1.setUsername(userDto.getUsername());
-            user1.setPassword(userDto.getPassword());
+            user1.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user1.setPhone(userDto.getPhone());
             user1.setCompany(user.getCompany());
             user1.setRole(role);
