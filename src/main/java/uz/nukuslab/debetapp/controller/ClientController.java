@@ -38,7 +38,7 @@ public class ClientController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
-    @GetMapping("/getAllMyClient")
+    @PostMapping("/getAllMyClient")
     public HttpEntity<?> getAllMyClient(@Paydalaniwshi User user){
         ApiResponse apiResponse = clientService.getMyAll(user);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
