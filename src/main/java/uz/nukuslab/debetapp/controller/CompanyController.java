@@ -47,7 +47,7 @@ public class CompanyController {
     }
 
     @CheckRole
-    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','USER')")
     @PostMapping("/getAllCompany")
     public HttpEntity<?> getAllCompany(){
         ApiResponse apiResponse = companyService.getAllCompany();
