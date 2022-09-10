@@ -134,7 +134,7 @@ check(user);
             user1.setUsername(userDto.getUsername());
             user1.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user1.setPhone(userDto.getPhone());
-            user1.setCompany(user.getCompany());
+//            user1.setCompany(user.getCompany());
             user1.setRole(role);
         }else {
 //            User userObject = new User(
