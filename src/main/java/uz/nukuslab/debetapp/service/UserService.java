@@ -1,6 +1,7 @@
 package uz.nukuslab.debetapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.DebetAppApplication;
 import uz.nukuslab.debetapp.entity.Company;
@@ -27,6 +28,8 @@ public class UserService {
     CompanyRepository companyRepository;
     @Autowired
     RoleRepository roleRepository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     public ApiResponse getUsersMyCompany(User user) {
         Company company = user.getCompany();
@@ -129,7 +132,7 @@ check(user);
             user1.setFirstName(userDto.getFirstName());
             user1.setLastName(userDto.getLastName());
             user1.setUsername(userDto.getUsername());
-            user1.setPassword(userDto.getPassword());
+            user1.setPassword(passwordEncoder.encode(userDto.getPassword()));
             user1.setPhone(userDto.getPhone());
             user1.setCompany(user.getCompany());
             user1.setRole(role);

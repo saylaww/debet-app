@@ -3,8 +3,10 @@ package uz.nukuslab.debetapp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.web.bind.annotation.*;
+import uz.nukuslab.debetapp.annotation.CheckRole;
 import uz.nukuslab.debetapp.payload.ApiResponse;
 import uz.nukuslab.debetapp.payload.LoginDto;
 import uz.nukuslab.debetapp.security.JwtProvider;
@@ -23,7 +25,6 @@ public class AuthController {
     @Autowired
     JwtProvider jwtProvider;
 
-    //    @CrossOrigin
     @PostMapping("/login")
     public HttpEntity<?> loginUser(@RequestBody LoginDto loginDto) {
         ApiResponse apiResponse = authService.login(loginDto);
