@@ -103,17 +103,14 @@ check(user);
 
     }
 
-    public ApiResponse addUser(UserDto userDto) {
+    public ApiResponse addUser(UserDto userDto, User user) {
+
+        User user1 = new User();
 
         boolean b = userRepository.existsByUsername(userDto.getUsername());
         if (!b){
             return new ApiResponse("Bunday id username tabilmadi!!!", false);
         }
-        Optional<Company> byId = companyRepository.findById(userDto.getCompanyId());
-        if (!byId.isPresent()){
-            return new ApiResponse("Bunday id li kompaniya tabilmadi!!!", false);
-        }
-        Company company = byId.get();
 
         Optional<Role> byRole = roleRepository.findById(userDto.getRoleId());
         if(!byRole.isPresent()){
@@ -121,17 +118,42 @@ check(user);
         }
         Role role = byRole.get();
 
-        User user = new User(
-                userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getUsername(),
-                userDto.getPassword(),
-                userDto.getUsername(),
-                company,
-                role
-        );
+        if (user.getRole().getRoleName().name().equals("SUPER_ADMIN")){
+            Optional<Company> byId = companyRepository.findById(userDto.getCompanyId());
+            if (!byId.isPresent()){
+                return new ApiResponse("Bunday id li kompaniya tabilmadi!!!", false);
+            }
+            Company company = byId.get();
+            user1.setCompany(company);
+
+            user1.setFirstName(userDto.getFirstName());
+            user1.setLastName(userDto.getLastName());
+            user1.setUsername(userDto.getUsername());
+            user1.setPassword(userDto.getPassword());
+            user1.setPhone(userDto.getPhone());
+            user1.setCompany(user.getCompany());
+            user1.setRole(role);
+        }else {
+//            User userObject = new User(
+//                    userDto.getFirstName(),
+//                    userDto.getLastName(),
+//                    userDto.getUsername(),
+//                    userDto.getPassword(),
+//                    userDto.getUsername(),
+//                    user.getCompany(),
+//                    role
+//            );
+            user1.setFirstName(userDto.getFirstName());
+            user1.setLastName(userDto.getLastName());
+            user1.setUsername(userDto.getUsername());
+            user1.setPassword(userDto.getPassword());
+            user1.setPhone(userDto.getPhone());
+            user1.setCompany(user.getCompany());
+            user1.setRole(role);
+        }
         userRepository.save(user);
-            return new ApiResponse("User saqlandi", true);
+
+        return new ApiResponse("User saqlandi", true);
     }
 
     public ApiResponse getAllUser() {

@@ -61,6 +61,8 @@ public class User extends AbsEntity implements UserDetails {
     }
 
 
+
+
     public User(String firstName, String lastName, String username, String password, String phone, Company company, Role role) {
         this.firstName = firstName;
         this.lastName = lastName;
