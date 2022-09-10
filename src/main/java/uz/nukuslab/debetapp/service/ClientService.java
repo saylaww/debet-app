@@ -52,7 +52,7 @@ public class ClientService {
             client.setFirstName(clientDto.getFirstName());
             client.setLastName(clientDto.getLastName());
             client.setPhone(clientDto.getPhone());
-            client.setCompany(user.getCompany());
+//            client.setCompany(user.getCompany());
 
             clientRepository.save(client);
         }else {
