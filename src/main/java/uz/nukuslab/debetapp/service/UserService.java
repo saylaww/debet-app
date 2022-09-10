@@ -154,7 +154,7 @@ check(user);
             user1.setCompany(user.getCompany());
             user1.setRole(role);
         }
-        userRepository.save(user);
+        userRepository.save(user1);
 
         return new ApiResponse("User saqlandi", true);
     }
