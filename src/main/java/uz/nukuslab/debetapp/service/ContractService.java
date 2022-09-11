@@ -401,4 +401,9 @@ int year = timestamp.getYear() + 1900;
         List<Contract> contracts = contractRepository.findByWorkerId(user.getId());
         return new ApiResponse("My contracts", true, contracts);
     }
+
+    public ApiResponse getAll() {
+        List<Contract> all = contractRepository.findAll();
+        return new ApiResponse("All contracts", true, all);
+    }
 }

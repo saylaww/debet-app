@@ -116,6 +116,14 @@ public class ContractController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+    @GetMapping("/getAllContract")
+    public HttpEntity<?> getAllContract(){
+        ApiResponse apiResponse = contractService.getAll();
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 
 
 
