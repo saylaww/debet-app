@@ -12,6 +12,7 @@ import uz.nukuslab.debetapp.payload.ClientDto;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.ClientService;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/client")
 public class ClientController {
