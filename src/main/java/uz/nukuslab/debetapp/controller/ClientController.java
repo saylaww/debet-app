@@ -22,8 +22,8 @@ public class ClientController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
-    @PostMapping("/add")
-    HttpEntity<?> add(@RequestBody ClientDto clientDto, @Paydalaniwshi User user){
+    @PostMapping("/addClient")
+    HttpEntity<?> addClient(@RequestBody ClientDto clientDto, @Paydalaniwshi User user){
         ApiResponse apiResponse = clientService.add(user, clientDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

@@ -43,6 +43,7 @@ public class ClientService {
                 clientList.add(contract.getClient());
             }
 
+
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
             return new ApiResponse("My client list", true, clientList);
         }

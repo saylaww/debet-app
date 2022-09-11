@@ -18,6 +18,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     boolean existsByPhone(String phone);
 
+//    List<Client> findByCompany_
+
 
 
 
