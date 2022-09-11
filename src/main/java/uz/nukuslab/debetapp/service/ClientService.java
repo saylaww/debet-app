@@ -59,7 +59,7 @@ public class ClientService {
 
         Client client = new Client();
 
-        if(user.getRole().getRoleName().name().equals(RoleName.SUPER_ADMIN)){
+        if(user.getRole().getRoleName().name().equals(RoleName.SUPER_ADMIN.name())){
             Optional<Company> byId = companyRepository.findById(clientDto.getCompanyId());
             if (!byId.isPresent()){
                 return new ApiResponse("Bunday company id bazada tabilmadi!!!", false);
