@@ -2,10 +2,7 @@ package uz.nukuslab.debetapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.nukuslab.debetapp.entity.Client;
-import uz.nukuslab.debetapp.entity.Company;
-import uz.nukuslab.debetapp.entity.Contract;
-import uz.nukuslab.debetapp.entity.User;
+import uz.nukuslab.debetapp.entity.*;
 import uz.nukuslab.debetapp.entity.enums.RoleName;
 import uz.nukuslab.debetapp.payload.ApiResponse;
 import uz.nukuslab.debetapp.payload.ClientDto;
@@ -13,9 +10,7 @@ import uz.nukuslab.debetapp.repository.ClientRepository;
 import uz.nukuslab.debetapp.repository.CompanyRepository;
 import uz.nukuslab.debetapp.repository.ContractRepository;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ClientService {
@@ -33,10 +28,8 @@ public class ClientService {
     }
 
     public ApiResponse getMyAll(User user) {
-        if (user.getRole().getRoleName().name().equals("USER") ||
-                user.getRole().getRoleName().name().equals("ADMIN")) {
 
-            List<Client> clientList = new ArrayList<>();
+            List<Client> clientList =new ArrayList<>();
 
             List<Contract> byWorker = contractRepository.findByWorkerId(user.getId());
             for (Contract contract : byWorker) {
@@ -46,8 +39,7 @@ public class ClientService {
 
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
             return new ApiResponse("My client list", true, clientList);
-        }
-        return new ApiResponse("",false);
+
     }
 
     public ApiResponse add(User user, ClientDto clientDto) {
