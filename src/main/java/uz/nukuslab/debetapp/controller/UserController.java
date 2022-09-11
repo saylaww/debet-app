@@ -1,6 +1,7 @@
 package uz.nukuslab.debetapp.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -101,6 +102,12 @@ public class UserController {
     public HttpEntity<?> addBalance(@RequestParam Long workerId,
                                     @RequestParam double summa){
         ApiResponse apiResponse = userService.addBalance(workerId, summa);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @GetMapping("/getAllByCompanyId")
+    public HttpEntity<?> getAllByCompanyId(@RequestParam Long id){
+        ApiResponse apiResponse = userService.getAllByCompanyId(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

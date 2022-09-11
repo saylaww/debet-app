@@ -187,4 +187,9 @@ check(user);
 
 //        return null;
     }
+
+    public ApiResponse getAllByCompanyId(Long id) {
+        List<User> list = userRepository.findByCompanyId(id);
+        return new ApiResponse("Company list", true, list);
+    }
 }

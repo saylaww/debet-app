@@ -81,4 +81,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Optional<User> findByIdAndCompanyActive(Long id, boolean company_active);
 
+    List<User> findByCompany_Id(Long company_id);
+
 }
