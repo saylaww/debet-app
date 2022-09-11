@@ -29,16 +29,18 @@ public class ClientService {
 
     public ApiResponse getMyAll(User user) {
 
-            List<Client> clientList =new ArrayList<>();
+//            List<Client> clientList =new ArrayList<>();
+//
+//            List<Contract> byWorker = contractRepository.findByWorkerId(user.getId());
+//            for (Contract contract : byWorker) {
+//                clientList.add(contract.getClient());
+//            }
 
-            List<Contract> byWorker = contractRepository.findByWorkerId(user.getId());
-            for (Contract contract : byWorker) {
-                clientList.add(contract.getClient());
-            }
+        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
 
 
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
-            return new ApiResponse("My client list", true, clientList);
+            return new ApiResponse("My client list", true, clients);
 
     }
 
