@@ -9,6 +9,7 @@ import uz.nukuslab.debetapp.payload.ClientDto;
 import uz.nukuslab.debetapp.repository.ClientRepository;
 import uz.nukuslab.debetapp.repository.CompanyRepository;
 import uz.nukuslab.debetapp.repository.ContractRepository;
+import uz.nukuslab.debetapp.repository.UserRepository;
 
 import java.util.*;
 
@@ -21,6 +22,8 @@ public class ClientService {
     CompanyRepository companyRepository;
     @Autowired
     ContractRepository contractRepository;
+    @Autowired
+    UserRepository userRepository;
 
     public ApiResponse getAll() {
         List<Client> all = clientRepository.findAll();
@@ -72,7 +75,13 @@ public class ClientService {
     }
 
     public ApiResponse getClientsByUserId(Long id) {
-        List<Client> clients = clientRepository.findByCompany_Id(id);
+        Optional<User> byId = userRepository.findById(id);
+        if (!byId.isPresent()){
+            return new ApiResponse("Bunday id li user bazada tabilmadi!!", false);
+        }
+        User user = byId.get();
+
+        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
         return new ApiResponse("My client list", true, clients);
 
     }
