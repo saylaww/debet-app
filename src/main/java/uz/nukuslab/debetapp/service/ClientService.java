@@ -28,8 +28,12 @@ public class ClientService {
     }
 
     public ApiResponse getMyAll(User user) {
-        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
-        return new ApiResponse("My client list", true, clients);
+        if (user.getRole().getRoleName().name().equals("USER") ||
+                user.getRole().getRoleName().name().equals("ADMIN")) {
+            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
+            return new ApiResponse("My client list", true, clients);
+        }
+        return new ApiResponse("",false);
     }
 
     public ApiResponse add(User user, ClientDto clientDto) {
