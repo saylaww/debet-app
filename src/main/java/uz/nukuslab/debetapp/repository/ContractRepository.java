@@ -57,4 +57,7 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
 
     List<Contract> findByWorkerId(Long worker_id);
+
+
+
 }
