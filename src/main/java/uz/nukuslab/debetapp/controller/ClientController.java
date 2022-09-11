@@ -46,5 +46,16 @@ public class ClientController {
     }
 
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
+    @GetMapping("/getClientsByUserId")
+    public HttpEntity<?> getClientsByUserId(@RequestParam Long id){
+        ApiResponse apiResponse = clientService.getClientsByUserId(id);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+
+
+
 
 }

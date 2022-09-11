@@ -29,19 +29,11 @@ public class ClientService {
 
     public ApiResponse getMyAll(User user) {
 
-//            List<Client> clientList =new ArrayList<>();
-//
-//            List<Contract> byWorker = contractRepository.findByWorkerId(user.getId());
-//            for (Contract contract : byWorker) {
-//                clientList.add(contract.getClient());
-//            }
-
         List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
 
 
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
             return new ApiResponse("My client list", true, clients);
-
     }
 
     public ApiResponse add(User user, ClientDto clientDto) {
@@ -77,5 +69,11 @@ public class ClientService {
         }
 
         return new ApiResponse("Client saqlandi", true);
+    }
+
+    public ApiResponse getClientsByUserId(Long id) {
+        List<Client> clients = clientRepository.findByCompany_Id(id);
+        return new ApiResponse("My client list", true, clients);
+
     }
 }
