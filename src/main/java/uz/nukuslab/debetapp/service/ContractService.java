@@ -45,24 +45,20 @@ public class ContractService {
         this.companyRepository = companyRepository;
     }
 
-    public ApiResponse addContract(ContractDto contractDto, User user) {
-//        Optional<Product> byProd = productRepository.findById(contractDto.getProductId());
-//        if (!byProd.isPresent()){
-//            return new ApiResponse("Bunday id li product tabilmadi!!!", false);
-//        }
-//        Product product = byProd.get();
-
-//        Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
-//        if (!byWorker.isPresent()){
-//            return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
-//        }
-//        User user = byWorker.get();
+    public ApiResponse addContract(ContractDto contractDto) {
 
         Optional<Client> byClient = clientRepository.findById(contractDto.getClientId());
         if (!byClient.isPresent()){
             return new ApiResponse("Bunday id li Client tabilmadi!!!", false);
         }
         Client client = byClient.get();
+
+
+        Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
+        if (!byWorker.isPresent()){
+            return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
+        }
+        User user = byWorker.get();
 
         Contract contract = new Contract(
                 contractDto.getProductName(),
@@ -73,7 +69,7 @@ public class ContractService {
                 contractDto.getPart()
         );
 
-        try {
+//        try {
             Contract savedContract = contractRepository.save(contract);
 
             List<Debet> debetList = new ArrayList<>();
@@ -108,9 +104,9 @@ public class ContractService {
 
             return new ApiResponse("Contract saqlandi", true);
 
-        }catch (Exception e){
-            return new ApiResponse("QA'telik", false);
-        }
+//        }catch (Exception e){
+//            return new ApiResponse("QA'telik", false);
+//        }
     }
 
 

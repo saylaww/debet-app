@@ -47,8 +47,8 @@ public class ContractController {
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @PostMapping("/addContract")
-    public HttpEntity<?> addContract(@RequestBody ContractDto contractDto, @Paydalaniwshi User user){
-        ApiResponse apiResponse = contractService.addContract(contractDto, user);
+    public HttpEntity<?> addContract(@RequestBody ContractDto contractDto){
+        ApiResponse apiResponse = contractService.addContract(contractDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
