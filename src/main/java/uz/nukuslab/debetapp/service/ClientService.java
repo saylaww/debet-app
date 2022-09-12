@@ -75,13 +75,19 @@ public class ClientService {
     }
 
     public ApiResponse getClientsByUserId(Long id) {
-        Optional<User> byId = userRepository.findById(id);
-        if (!byId.isPresent()){
-            return new ApiResponse("Bunday id li user bazada tabilmadi!!", false);
+        Set<Client> clients = new HashSet<>();
+        List<Contract> byWorkerId = contractRepository.findByWorkerId(id);
+        for (Contract contract : byWorkerId) {
+            clients.add(contract.getClient());
         }
-        User user = byId.get();
 
-        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
+//        Optional<User> byId = userRepository.findById(id);
+//        if (!byId.isPresent()){
+//            return new ApiResponse("Bunday id li user bazada tabilmadi!!", false);
+//        }
+//        User user = byId.get();
+//
+//        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
         return new ApiResponse("My client list", true, clients);
 
     }
