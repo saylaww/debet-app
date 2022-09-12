@@ -73,41 +73,44 @@ public class ContractService {
                 contractDto.getPart()
         );
 
-        Contract savedContract = contractRepository.save(contract);
+        try {
+            Contract savedContract = contractRepository.save(contract);
 
+            List<Debet> debetList = new ArrayList<>();
 
+            Date date = new Date();
+            LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-        List<Debet> debetList = new ArrayList<>();
+            int dayOfMonth = localDate.getDayOfMonth();
+            int month = localDate.getMonthValue();
+            int year = localDate.getYear();
 
-        Date date = new Date();
-        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            for (int i = 0; i < contractDto.getPart(); i++) {
+                Month monthName = Month.of(month);
 
-        int dayOfMonth = localDate.getDayOfMonth();
-        int month = localDate.getMonthValue();
-        int year = localDate.getYear();
-
-        for (int i = 0; i < contractDto.getPart(); i++) {
-            Month monthName = Month.of(month);
-
-            debetList.add(new Debet(
-                    dayOfMonth + " - " + monthName.toString() + " - " + year,
-                    contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
-                    contract
-            ));
-            boolean b = true;
-            if (month == 12){
-                year++;
-                month = 1;
-                b = false;
+                debetList.add(new Debet(
+                        dayOfMonth + " - " + monthName.toString() + " - " + year,
+                        contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
+                        contract
+                ));
+                boolean b = true;
+                if (month == 12){
+                    year++;
+                    month = 1;
+                    b = false;
+                }
+                if (b) {
+                    month++;
+                }
             }
-            if (b) {
-                month++;
-            }
+
+            debetRepository.saveAll(debetList);
+
+            return new ApiResponse("Contract saqlandi", true);
+
+        }catch (Exception e){
+            return new ApiResponse("QA'telik", false);
         }
-
-        debetRepository.saveAll(debetList);
-
-        return new ApiResponse("Contract saqlandi", true);
     }
 
 
