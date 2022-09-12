@@ -415,4 +415,12 @@ int year = timestamp.getYear() + 1900;
 
         return new ApiResponse("Contract list", true, list);
     }
+
+    public ApiResponse getAllContractByUserId(Long id) {
+        List<Contract> list = contractRepository.findByWorkerId(id);
+        return new ApiResponse("Contract lis by User id", true, list);
+    }
+
+
+
 }
