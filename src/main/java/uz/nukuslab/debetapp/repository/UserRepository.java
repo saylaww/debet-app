@@ -26,7 +26,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findAll();
 
     @CheckRole
-    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @Override
     Optional<User> findById(Long integer);
 
