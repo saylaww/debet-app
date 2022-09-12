@@ -83,4 +83,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByCompany_Id(Long company_id);
 
+    List<User> findByRole_RoleNameAndCompany_Id(RoleName role_roleName, Long company_id);
+
 }

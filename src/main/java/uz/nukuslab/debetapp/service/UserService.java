@@ -206,4 +206,9 @@ check(user);
 
         return new ApiResponse("User", true, user);
     }
+
+    public ApiResponse getAllByMyCompany(User user) {
+        List<User> list = userRepository.findByRole_RoleNameAndCompany_Id(RoleName.USER, user.getCompany().getId());
+        return new ApiResponse("User list my Company", true, list);
+    }
 }

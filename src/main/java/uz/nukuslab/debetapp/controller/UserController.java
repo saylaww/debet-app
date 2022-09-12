@@ -122,6 +122,14 @@ public class UserController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
+    @GetMapping("/getAllByMyCompany")
+    public HttpEntity<?> getAllByMyCompany(@Paydalaniwshi User user){
+        ApiResponse apiResponse = userService.getAllByMyCompany(user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 
 
 
