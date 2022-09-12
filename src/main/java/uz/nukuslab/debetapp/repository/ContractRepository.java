@@ -58,6 +58,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     List<Contract> findByWorkerId(Long worker_id);
 
+    List<Contract> findByWorker_CompanyId(Long worker_company_id);
+
 
 
 }

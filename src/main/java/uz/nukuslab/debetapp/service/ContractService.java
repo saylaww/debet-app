@@ -405,4 +405,14 @@ int year = timestamp.getYear() + 1900;
         List<Contract> all = contractRepository.findAll();
         return new ApiResponse("All contracts", true, all);
     }
+
+    public ApiResponse getContractByCompanyId(Long id) {
+        boolean b = companyRepository.existsById(id);
+        if (!b){
+            return new ApiResponse("Bunday id li company bazada tabilmadi!!!", false);
+        }
+        List<Contract> list = contractRepository.findByWorker_CompanyId(id);
+
+        return new ApiResponse("Contract list", true, list);
+    }
 }
