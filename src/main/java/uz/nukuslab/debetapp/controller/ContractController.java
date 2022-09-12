@@ -118,7 +118,7 @@ public class ContractController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN')")
-    @GetMapping("/getContractByCompanyId")
+    @PostMapping("/getContractByCompanyId")
     public HttpEntity<?> getContractByCompanyId(@RequestParam Long id){
         ApiResponse apiResponse = contractService.getContractByCompanyId(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
