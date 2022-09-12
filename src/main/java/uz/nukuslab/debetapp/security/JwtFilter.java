@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import uz.nukuslab.debetapp.entity.User;
+import uz.nukuslab.debetapp.payload.ApiResponse;
 import uz.nukuslab.debetapp.repository.UserRepository;
 import uz.nukuslab.debetapp.service.AuthService;
 import uz.nukuslab.debetapp.service.MyAuthService;
@@ -19,6 +20,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -56,6 +58,7 @@ public class JwtFilter extends OncePerRequestFilter {
 //                   user.getPassword()
 //                ));
 //                System.out.println("www");
+
 
                 UserDetails userDetails = myAuthService.loadUserByUsername(username);
                 UsernamePasswordAuthenticationToken authenticationToken =

@@ -1,6 +1,7 @@
 package uz.nukuslab.debetapp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.DebetAppApplication;
@@ -30,6 +31,8 @@ public class UserService {
     RoleRepository roleRepository;
     @Autowired
     PasswordEncoder passwordEncoder;
+    @Autowired
+    MyAuthService myAuthService;
 
     public ApiResponse getUsersMyCompany(User user) {
         Company company = user.getCompany();
@@ -191,5 +194,16 @@ check(user);
     public ApiResponse getAllByCompanyId(Long id) {
         List<User> list = userRepository.findByCompanyId(id);
         return new ApiResponse("Company list", true, list);
+    }
+
+    public ApiResponse getUserByUsername(String username) {
+//        UserDetails userDetails = myAuthService.loadUserByUsername(username);
+        Optional<User> byUsername = userRepository.findByUsername(username);
+        if (!byUsername.isPresent()){
+            return new ApiResponse("Bunday username bazada tabilamdi!!!", false);
+        }
+        User user = byUsername.get();
+
+        return new ApiResponse("User", true, user);
     }
 }
