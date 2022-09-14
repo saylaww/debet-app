@@ -151,7 +151,7 @@ public class ContractController {
     }
 
     @CheckRole
-    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @GetMapping("/getAllContractByNoPayed")
     public HttpEntity<?> getAllContractByNoPayed(@Paydalaniwshi User user){
         ApiResponse apiResponse = contractService.getAllContractByNoPayed(user);
