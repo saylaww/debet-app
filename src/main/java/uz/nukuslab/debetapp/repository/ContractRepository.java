@@ -50,6 +50,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
     List<Contract> findByClient_PhoneContaining(String client_phone);
     List<Contract> findByClient_PhoneContainingAndWorker_Company_IdAndClient_Company_Id(String client_phone, Long worker_company_id, Long client_company_id);
 
+    List<Contract>findByEnabledAndClient_Company_IdAndWorker_Company_Id(boolean enabled, Long client_company_id, Long worker_company_id);
+
 //    List<Debet> findByContract_Worker_CompanyAndCreatedAtBetweenAndContract_Worker_CompanyActive(Company contract_worker_company, Timestamp createdAt, Timestamp createdAt2, boolean contract_worker_company_active);
 
 //    @CheckRole
