@@ -122,7 +122,7 @@ public class ContractService {
         if (count == 0){
             Optional<Contract> byId = contractRepository.findById(contractId);
             Contract contract = byId.get();
-            contract.setEnable(true);
+            contract.setEnabled(true);
             contractRepository.save(contract);
         }
     }

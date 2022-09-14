@@ -48,7 +48,7 @@ public class Contract extends AbsEntity {
     @Column(nullable = false)
     private Integer part;
 
-    private boolean enable = false;
+    private boolean enabled = false;
 
     public Contract(String productName, User worker, double price, Client client, double percent, Integer part) {
         this.productName = productName;
