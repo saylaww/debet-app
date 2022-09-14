@@ -422,5 +422,8 @@ int year = timestamp.getYear() + 1900;
     }
 
 
-
+    public ApiResponse byNumber(String number) {
+        List<Contract> list = contractRepository.findByClient_PhoneContaining(number);
+        return new ApiResponse("list", true, list);
+    }
 }

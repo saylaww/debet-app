@@ -43,6 +43,12 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 //    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     List<Contract> findByClient_Phone(String client_phone);
 
+
+//    List<Contract> findByClient_PhoneContaining(String client_phone);
+//    List<Contract> findByProductNameContaining(String productName);
+//    List<Contract> findByProductNameContainingIgnoreCase(String productName);
+    List<Contract> findByClient_PhoneContaining(String client_phone);
+
 //    List<Debet> findByContract_Worker_CompanyAndCreatedAtBetweenAndContract_Worker_CompanyActive(Company contract_worker_company, Timestamp createdAt, Timestamp createdAt2, boolean contract_worker_company_active);
 
 //    @CheckRole

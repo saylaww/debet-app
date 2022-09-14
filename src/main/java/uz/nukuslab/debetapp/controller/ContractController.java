@@ -28,6 +28,15 @@ public class ContractController {
         this.contractService = contractService;
     }
 
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/byNumber")
+    public HttpEntity<?> byNumber(@RequestParam String number){
+        ApiResponse apiResponse = contractService.byNumber(number);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @PostMapping("/calc")
