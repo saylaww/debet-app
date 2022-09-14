@@ -438,4 +438,12 @@ int year = timestamp.getYear() + 1900;
                 user.getCompany().getId());
         return new ApiResponse("Contract List No Payed", true, list);
     }
+
+    public ApiResponse getAllContractByPayed(User user) {
+        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_Id(
+                true,
+                user.getCompany().getId(),
+                user.getCompany().getId());
+        return new ApiResponse("Contract List Payed", true, list);
+    }
 }
