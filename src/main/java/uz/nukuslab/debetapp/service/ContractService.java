@@ -10,6 +10,7 @@ import uz.nukuslab.debetapp.payload.ContractDto;
 import uz.nukuslab.debetapp.payload.DateDto;
 import uz.nukuslab.debetapp.repository.*;
 
+import javax.jws.soap.SOAPBinding;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -121,7 +122,7 @@ public class ContractService {
         if (count == 0){
             Optional<Contract> byId = contractRepository.findById(contractId);
             Contract contract = byId.get();
-            contract.setEnabled(true);
+            contract.setEnable(true);
             contractRepository.save(contract);
         }
     }
@@ -422,8 +423,11 @@ int year = timestamp.getYear() + 1900;
     }
 
 
-    public ApiResponse byNumber(String number) {
-        List<Contract> list = contractRepository.findByClient_PhoneContaining(number);
+    public ApiResponse byNumber(String number, User user) {
+        List<Contract> list = contractRepository.findByClient_PhoneContainingAndWorker_Company_IdAndClient_Company_Id(
+                number,
+                user.getCompany().getId(),
+                user.getCompany().getId());
         return new ApiResponse("list", true, list);
     }
 }
