@@ -451,4 +451,13 @@ int year = timestamp.getYear() + 1900;
         List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_Id(user.getCompany().getId(), user.getCompany().getId());
         return new ApiResponse("All Contract lis", true, list);
     }
+
+    public ApiResponse getById(Long id) {
+        Optional<Contract> byId = contractRepository.findById(id);
+        if (!byId.isPresent()){
+            return new ApiResponse("Bunday id li contract bazada tabilmadi!!!", false);
+        }
+        Contract contract = byId.get();
+        return new ApiResponse("contract", true, contract);
+    }
 }
