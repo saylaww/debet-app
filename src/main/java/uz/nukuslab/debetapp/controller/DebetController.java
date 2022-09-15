@@ -49,6 +49,13 @@ public class DebetController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/getDebetByContractId")
+    public HttpEntity<?> getDebetByContractId(@RequestParam Long contractId, @Paydalaniwshi User user){
+        ApiResponse apiResponse = debetService.getDebetByContractId(contractId, user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
 
 }

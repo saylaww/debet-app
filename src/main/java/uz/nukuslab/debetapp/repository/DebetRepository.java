@@ -60,4 +60,8 @@ public interface DebetRepository extends JpaRepository<Debet, Long> {
 //    List<Debet> findByCreatedAtBetweenAndContract_Worker_CompanyAndContract_Worker_CompanyActive(Timestamp createdAt, Timestamp createdAt2, Company contract_worker_company, boolean contract_worker_company_active);
 //    List<Debet> findByContract_Worker_Company(Company contract_worker_company);
 
+
+    List<Debet> findByContract_Worker_IdAndContract_Id(Long contract_worker_id, Long contract_id);
+
+
 }
