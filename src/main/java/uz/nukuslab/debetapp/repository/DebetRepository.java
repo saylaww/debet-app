@@ -61,7 +61,7 @@ public interface DebetRepository extends JpaRepository<Debet, Long> {
 //    List<Debet> findByContract_Worker_Company(Company contract_worker_company);
 
 
-    List<Debet> findByContract_Worker_IdAndContract_Id(Long contract_worker_id, Long contract_id);
+    List<Debet> findByContract_Worker_IdAndContract_IdAndPaid(Long contract_worker_id, Long contract_id, boolean paid);
 
 
 }

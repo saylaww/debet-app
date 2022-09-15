@@ -66,7 +66,12 @@ public class DebetService {
 
 
     public ApiResponse getDebetByContractId(Long contractId, User user) {
-        List<Debet> list = debetRepository.findByContract_Worker_IdAndContract_Id(user.getId(), contractId);
+        List<Debet> list = debetRepository.findByContract_Worker_IdAndContract_IdAndPaid(user.getId(), contractId,false);
+        return new ApiResponse("debet list", true, list);
+    }
+
+    public ApiResponse getDebetByContractIdPayed(Long contractId, User user) {
+        List<Debet> list = debetRepository.findByContract_Worker_IdAndContract_IdAndPaid(user.getId(), contractId,true);
         return new ApiResponse("debet list", true, list);
     }
 }
