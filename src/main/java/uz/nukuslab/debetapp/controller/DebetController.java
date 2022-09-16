@@ -69,8 +69,8 @@ public class DebetController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
-    @PutMapping("/updateDebet/{id}")
-    public HttpEntity<?> updateDebet(@PathVariable Long id, @RequestBody DebetDto debetDto){
+    @PutMapping("/updateDebet")
+    public HttpEntity<?> updateDebet(@RequestParam Long id, @RequestBody DebetDto debetDto){
         ApiResponse apiResponse = debetService.updateDebet(id, debetDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
