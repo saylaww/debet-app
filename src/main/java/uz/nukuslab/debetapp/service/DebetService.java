@@ -77,13 +77,13 @@ public class DebetService {
     }
 
 
-    public ApiResponse updateDebet(Long id, DebetDto debetDto) {
+    public ApiResponse updateDebet(Long id, boolean pay) {
         Optional<Debet> byId = debetRepository.findById(id);
         if (!byId.isPresent()){
             return new ApiResponse("Bunday id li debet tawilmadi!!!", false);
         }
         Debet debet = byId.get();
-        debet.setPaid(debetDto.isPaid());
+        debet.setPaid(pay);
 
         try {
             Debet save = debetRepository.save(debet);
