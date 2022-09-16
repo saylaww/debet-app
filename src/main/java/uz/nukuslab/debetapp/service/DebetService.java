@@ -87,6 +87,7 @@ public class DebetService {
 
         try {
             Debet save = debetRepository.save(debet);
+            contractService.checkDebetList(debet.getContract().getId());
             return new ApiResponse("Debet updated", true, save);
         }catch (Exception e){
             return new ApiResponse("Error updated", false);
