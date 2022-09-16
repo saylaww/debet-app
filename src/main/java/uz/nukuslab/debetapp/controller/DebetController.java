@@ -7,8 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.nukuslab.debetapp.annotation.CheckRole;
+import uz.nukuslab.debetapp.entity.Debet;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.payload.DebetDto;
 import uz.nukuslab.debetapp.payload.PayDto;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.ContractService;
@@ -62,6 +64,14 @@ public class DebetController {
     @PostMapping("/getDebetByContractIdPayed")
     public HttpEntity<?> getDebetByContractIdPayed(@RequestParam Long contractId, @Paydalaniwshi User user){
         ApiResponse apiResponse = debetService.getDebetByContractIdPayed(contractId, user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PutMapping("/updateDebet/{id}")
+    public HttpEntity<?> updateDebet(@PathVariable Long id, @RequestBody DebetDto debetDto){
+        ApiResponse apiResponse = debetService.updateDebet(id, debetDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

@@ -7,6 +7,7 @@ import uz.nukuslab.debetapp.entity.Company;
 import uz.nukuslab.debetapp.entity.Debet;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.payload.DebetDto;
 import uz.nukuslab.debetapp.payload.PayDto;
 import uz.nukuslab.debetapp.repository.DebetRepository;
 
@@ -73,5 +74,22 @@ public class DebetService {
     public ApiResponse getDebetByContractIdPayed(Long contractId, User user) {
         List<Debet> list = debetRepository.findByContract_Worker_IdAndContract_IdAndPaid(user.getId(), contractId,true);
         return new ApiResponse("debet list", true, list);
+    }
+
+
+    public ApiResponse updateDebet(Long id, DebetDto debetDto) {
+        Optional<Debet> byId = debetRepository.findById(id);
+        if (!byId.isPresent()){
+            return new ApiResponse("Bunday id li debet tawilmadi!!!", false);
+        }
+        Debet debet = byId.get();
+        debet.setPaid(debetDto.isPaid());
+
+        try {
+            Debet save = debetRepository.save(debet);
+            return new ApiResponse("Debet updated", true, save);
+        }catch (Exception e){
+            return new ApiResponse("Error updated", false);
+        }
     }
 }
