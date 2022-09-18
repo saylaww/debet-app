@@ -534,10 +534,11 @@ int year = timestamp.getYear() + 1900;
         timestamp2.setMinutes(59);
         timestamp2.setSeconds(59);
 
-        List<Debet> list = debetRepository.findByContract_Worker_IdAndUpdatedAtBetweenAndContract_Worker_Company_Active(
+        List<Debet> list = debetRepository.findByContract_Worker_IdAndUpdatedAtBetweenAndContract_Worker_Company_ActiveAndPaid(
                 user.getId(),
                 timestamp,
                 timestamp2,
+                true,
                 true
         );
 
