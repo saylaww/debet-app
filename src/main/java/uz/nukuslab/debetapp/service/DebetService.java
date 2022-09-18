@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.entity.Company;
+import uz.nukuslab.debetapp.entity.Contract;
 import uz.nukuslab.debetapp.entity.Debet;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.payload.ApiResponse;
@@ -92,5 +93,20 @@ public class DebetService {
         }catch (Exception e){
             return new ApiResponse("Error updated", false);
         }
+    }
+
+    public ApiResponse getMyAllDebetToNow(User user) {
+        Timestamp createdAt = user.getCreatedAt();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        List<Debet> list = debetRepository.findByContract_Worker_IdAndUpdatedAtBetweenAndContract_Worker_Company_ActiveAndPaid(
+                user.getId(),
+                createdAt,
+                now,
+                true,
+                true
+        );
+
+        return new ApiResponse("Contract list", true, list);
     }
 }
