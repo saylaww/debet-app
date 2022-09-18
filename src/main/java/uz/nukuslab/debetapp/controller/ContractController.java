@@ -192,6 +192,14 @@ public class ContractController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/getMyAllContractBeetwen")
+    public HttpEntity<?> getMyAllContractBeetwen(@RequestParam String start, @RequestParam String end, @Paydalaniwshi User user) throws ParseException {
+        ApiResponse apiResponse = contractService.getMyAllContractBeetwen(user, start, end);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
 
 
 

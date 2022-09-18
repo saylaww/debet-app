@@ -4,10 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.nukuslab.debetapp.DebetAppApplication;
 import uz.nukuslab.debetapp.entity.*;
-import uz.nukuslab.debetapp.payload.ApiResponse;
-import uz.nukuslab.debetapp.payload.ClientPhone;
-import uz.nukuslab.debetapp.payload.ContractDto;
-import uz.nukuslab.debetapp.payload.DateDto;
+import uz.nukuslab.debetapp.payload.*;
 import uz.nukuslab.debetapp.repository.*;
 
 import javax.jws.soap.SOAPBinding;
@@ -473,5 +470,37 @@ int year = timestamp.getYear() + 1900;
         );
 
         return new ApiResponse("Contract list", true, list);
+    }
+
+    public ApiResponse getMyAllContractBeetwen(User user, String start, String end) throws ParseException {
+        if (start.equals("dan") || start.equals("")){
+//            start = user.getCreatedAt().toString().substring(0,9);
+            start = user.getCreatedAt().getDate()+"/"+user.getCreatedAt().getMonth()+"/"+user.getCreatedAt().getYear();
+            System.out.println(start);
+        }
+
+        SaneDto saneDto = new SaneDto(start, end);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date date = dateFormat.parse(saneDto.getStart());
+        long time = date.getTime();
+        Timestamp timestamp = new Timestamp(time);
+
+
+        Date date2 = dateFormat.parse(saneDto.getEnd());
+        long time2 = date2.getTime();
+        Timestamp timestamp2 = new Timestamp(time2);
+        timestamp2.setHours(23);
+        timestamp2.setMinutes(59);
+        timestamp2.setSeconds(59);
+
+        List<Contract> list = contractRepository.findByWorkerIdAndCreatedAtBetweenAndWorker_CompanyActive(
+                user.getId(),
+                timestamp,
+                timestamp2,
+                true
+        );
+
+        return new ApiResponse("Contract list by beetwen date", true, list);
     }
 }
