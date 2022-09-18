@@ -65,5 +65,11 @@ public class DebetAppApplication {
         userRepository.saveAll(users);
     }
 
+//    @Scheduled(cron = "2 0 0 * * *")
+//    public void checkDay(){
+//
+//    }
+
+
 
 }

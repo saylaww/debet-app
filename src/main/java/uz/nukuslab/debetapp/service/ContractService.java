@@ -460,4 +460,18 @@ int year = timestamp.getYear() + 1900;
         Contract contract = byId.get();
         return new ApiResponse("contract", true, contract);
     }
+
+    public ApiResponse getMyAllContractToNow(User user) {
+        Timestamp createdAt = user.getCreatedAt();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+
+        List<Contract> list = contractRepository.findByWorkerIdAndCreatedAtBetweenAndWorker_CompanyActive(
+                user.getId(),
+                createdAt,
+                now,
+                true
+        );
+
+        return new ApiResponse("Contract list", true, list);
+    }
 }
