@@ -17,6 +17,7 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     List<Client> findByCompany_Id(Long company_id);
 
     boolean existsByPhone(String phone);
+    boolean existsByPhoneAndCreatedBy(String phone, Long createdBy);
 
 //    List<Client> findByCompany_
 

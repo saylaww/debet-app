@@ -41,7 +41,8 @@ public class ClientService {
 
     public ApiResponse add(User user, ClientDto clientDto) {
 
-        boolean b = clientRepository.existsByPhone(clientDto.getPhone());
+//        boolean b = clientRepository.existsByPhone(clientDto.getPhone());
+        boolean b = clientRepository.existsByPhoneAndCreatedBy(clientDto.getPhone(), user.getId());
         if (b){
             return new ApiResponse("Bunday telefon nomer bazada BAR", false);
         }

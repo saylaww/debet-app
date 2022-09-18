@@ -27,6 +27,7 @@ public class Client extends AbsEntity {
     @Column(nullable = false)
     private String lastName;
 
+//    @Column(nullable = false, unique = true)
     @Column(nullable = false, unique = true)
     private String phone;
 
