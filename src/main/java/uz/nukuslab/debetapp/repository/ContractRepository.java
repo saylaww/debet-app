@@ -52,6 +52,8 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     List<Contract>findByEnabledAndClient_Company_IdAndWorker_Company_Id(boolean enabled, Long client_company_id, Long worker_company_id);
 
+    List<Contract>findByEnabledAndClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(boolean enabled, Long client_company_id, Long worker_company_id);
+
 //    List<Debet> findByContract_Worker_CompanyAndCreatedAtBetweenAndContract_Worker_CompanyActive(Company contract_worker_company, Timestamp createdAt, Timestamp createdAt2, boolean contract_worker_company_active);
 
 //    @CheckRole
@@ -67,9 +69,15 @@ public interface ContractRepository extends JpaRepository<Contract, Long> {
 
     List<Contract> findByWorkerId(Long worker_id);
 
+    List<Contract> findByWorkerIdOrderByCreatedAtDesc(Long worker_id);
+
+
+
+
     List<Contract> findByWorker_CompanyId(Long worker_company_id);
 
     List<Contract> findByClient_Company_IdAndWorker_Company_Id(Long client_company_id, Long worker_company_id);
+    List<Contract> findByClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(Long client_company_id, Long worker_company_id);
 
 
 

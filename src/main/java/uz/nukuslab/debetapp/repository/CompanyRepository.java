@@ -9,6 +9,7 @@ import uz.nukuslab.debetapp.annotation.CheckRole;
 import uz.nukuslab.debetapp.entity.Company;
 import uz.nukuslab.debetapp.projection.CompanyProjection;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -16,7 +17,9 @@ import java.util.UUID;
 @RepositoryRestResource(path = "company", excerptProjection = CompanyProjection.class)
 public interface CompanyRepository extends CrudRepository<Company, Long> {
 
-    @CheckRole
+
+
+//    @CheckRole
 //    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
     @Override
     <S extends Company> S save(S entity);

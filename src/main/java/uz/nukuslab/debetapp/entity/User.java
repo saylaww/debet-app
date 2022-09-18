@@ -60,8 +60,19 @@ public class User extends AbsEntity implements UserDetails {
         return new ArrayList<Role>(Collections.singleton(role));
     }
 
-
-
+    public User(String firstName, String lastName, String username, String password, String phone, Company company, Role role, boolean enabled, boolean accountNonExpired, boolean accountNonLocked, boolean credentialsNonExpired) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.password = password;
+        this.phone = phone;
+        this.company = company;
+        this.role = role;
+        this.enabled = enabled;
+        this.accountNonExpired = accountNonExpired;
+        this.accountNonLocked = accountNonLocked;
+        this.credentialsNonExpired = credentialsNonExpired;
+    }
 
     public User(String firstName, String lastName, String username, String password, String phone, Company company, Role role) {
         this.firstName = firstName;

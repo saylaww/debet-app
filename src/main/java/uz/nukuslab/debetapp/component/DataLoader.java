@@ -49,10 +49,10 @@ public class DataLoader implements CommandLineRunner {
 
 
 //            klklkk
-//            Company nukuslab_llc = companyRepository.save(new Company(
-//                    "Nukuslab",
-//                    true
-//            ));
+            Company nukuslab_llc = companyRepository.save(new Company(
+                    "Nukuslab",
+                    true
+            ));
 //
 //            Company bazar = companyRepository.save(
 //                    new Company(
@@ -68,31 +68,32 @@ public class DataLoader implements CommandLineRunner {
                     "sadmin",
                     passwordEncoder.encode("123"),
                     "+998974748061",
-//                    nukuslab_llc,
+                    nukuslab_llc,
                     sAdmin,
                     true,
                     true,
                     true,
                     true
             ));
-            userRepository.save(new User(
-                    "Jaras",
-                    "Amirov",
-                    "user",
-                    passwordEncoder.encode("456"),
-                    "+123456789",
-//                    bazar,
-                    user
-            ));
-            userRepository.save(new User(
-                    "Orash",
-                    "Qutlimuratov",
-                    "admin",
-                    passwordEncoder.encode("789"),
-                    "+897456213",
-//                    bazar,
-                    admin
-            ));
+
+//            userRepository.save(new User(
+//                    "Jaras",
+//                    "Amirov",
+//                    "user",
+//                    passwordEncoder.encode("456"),
+//                    "+123456789",
+////                    bazar,
+//                    user
+//            ));
+//            userRepository.save(new User(
+//                    "Orash",
+//                    "Qutlimuratov",
+//                    "admin",
+//                    passwordEncoder.encode("789"),
+//                    "+897456213",
+////                    bazar,
+//                    admin
+//            ));
 
 
         }

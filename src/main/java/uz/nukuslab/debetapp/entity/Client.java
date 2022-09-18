@@ -7,9 +7,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import uz.nukuslab.debetapp.payload.AbsEntity;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
+import javax.validation.Constraint;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -17,6 +16,9 @@ import javax.persistence.ManyToOne;
 @NoArgsConstructor
 @Entity
 //@JsonIgnoreProperties({"hibernateLazyInitializer"})
+@Table(uniqueConstraints={
+        @UniqueConstraint(columnNames = {"createdBy", "phone"})
+})
 public class Client extends AbsEntity {
 
     @Column(nullable = false)
