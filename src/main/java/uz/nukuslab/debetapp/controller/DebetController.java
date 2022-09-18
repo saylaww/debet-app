@@ -16,6 +16,8 @@ import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.ContractService;
 import uz.nukuslab.debetapp.service.DebetService;
 
+import java.text.ParseException;
+
 @CrossOrigin
 @RestController
 @RequestMapping("/debet")
@@ -75,6 +77,13 @@ public class DebetController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/getMyAllDebetBeetwen")
+    public HttpEntity<?> getMyAllDebetBeetwen(@RequestParam String start, @RequestParam String end, @Paydalaniwshi User user) throws ParseException {
+        ApiResponse apiResponse = contractService.getMyAllDebetBeetwen(user, start, end);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
 
 
 
