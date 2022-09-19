@@ -112,37 +112,37 @@ public class DebetService {
     }
 
     //
-//    public ApiResponse getJournal(User user) {
-//
-//        Timestamp start = new Timestamp(System.currentTimeMillis());
-//        start.setDate(1);
-//        start.setHours(0);
-//        start.setMinutes(0);
-//        start.setSeconds(0);
-//
-//        int lastDay = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
-//
-//        Timestamp end = new Timestamp(System.currentTimeMillis());
-//        end.setDate(lastDay);
-//        end.setHours(23);
-//        end.setMinutes(59);
-//        end.setSeconds(59);
-//
-////        List<Debet> list = debetRepository.findByPayDateBetweenAndPaidAndContract_Worker_Id(
-////                start,
-////                end,
-////                false,
-////                user.getId()
-////        );
+    public ApiResponse getJournal(User user) {
+
+        Timestamp start = new Timestamp(System.currentTimeMillis());
+        start.setDate(1);
+        start.setHours(0);
+        start.setMinutes(0);
+        start.setSeconds(0);
+
+        int lastDay = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+
+        Timestamp end = new Timestamp(System.currentTimeMillis());
+        end.setDate(lastDay);
+        end.setHours(23);
+        end.setMinutes(59);
+        end.setSeconds(59);
+
+        List<Debet> list = debetRepository.findByPayDateBetweenAndPaidAndContract_Worker_Id(
+                start,
+                end,
+                false,
+                user.getId()
+        );
 //        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdAndPayDateBetweenOrderBy(
 //                false,
 //                user.getId(),
 //                start,
 //                end
 //        );
-//
-//        return new ApiResponse("Jurnal listi", true, list);
-//    }
+
+        return new ApiResponse("Jurnal listi", true, list);
+    }
 
 
 }
