@@ -47,4 +47,9 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
     @Override
     void deleteById(Long integer);
+
+
+    List<Company> findAllByOrderByName();
+
+
 }
