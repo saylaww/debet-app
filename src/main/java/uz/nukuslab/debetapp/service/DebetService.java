@@ -111,6 +111,7 @@ public class DebetService {
         return new ApiResponse("Contract list", true, list);
     }
 
+    //
     public ApiResponse getJournal(User user) {
 
         Timestamp start = new Timestamp(System.currentTimeMillis());
