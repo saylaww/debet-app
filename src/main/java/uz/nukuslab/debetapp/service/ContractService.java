@@ -79,14 +79,19 @@ public class ContractService {
             int month = localDate.getMonthValue();
             int year = localDate.getYear();
 
+            int count = 1;
             for (int i = 0; i < contractDto.getPart(); i++) {
                 Month monthName = Month.of(month);
 
+                Timestamp timestamp = savedContract.getCreatedAt();
+                timestamp.setMonth(month);
                 debetList.add(new Debet(
                         dayOfMonth + " - " + monthName.toString() + " - " + year,
                         contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
-                        contract
+                        contract,
+                        timestamp
                 ));
+
                 boolean b = true;
                 if (month == 12){
                     year++;

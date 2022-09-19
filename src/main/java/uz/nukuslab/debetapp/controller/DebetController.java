@@ -95,5 +95,12 @@ public class DebetController {
     }
 
 
+    @GetMapping("/getJournal")
+    public HttpEntity<?> getJournal(@Paydalaniwshi User user){
+        ApiResponse apiResponse = debetService.getJournal(user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+
 
 }

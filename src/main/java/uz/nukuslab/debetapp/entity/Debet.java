@@ -38,11 +38,18 @@ public class Debet extends AbsEntity {
 
     private boolean paid = false;
 
+    private Timestamp payDate;
+
     public Debet(String monthName, double summa, Contract contract) {
         this.monthName = monthName;
         this.summa = summa;
         this.contract = contract;
     }
 
-
+    public Debet(String monthName, double summa, Contract contract, Timestamp payDate) {
+        this.monthName = monthName;
+        this.summa = summa;
+        this.contract = contract;
+        this.payDate = payDate;
+    }
 }
