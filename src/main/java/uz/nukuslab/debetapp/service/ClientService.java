@@ -33,7 +33,7 @@ public class ClientService {
     public ApiResponse getMyAll(User user) {
 
 //        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
-        List<Client> clients = clientRepository.findByCreatedBy(user.getCompany().getId());
+        List<Client> clients = clientRepository.findByCreatedBy(user.getCreatedBy());
 
 
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
