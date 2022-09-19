@@ -128,18 +128,18 @@ public class DebetService {
         end.setMinutes(59);
         end.setSeconds(59);
 
-        List<Debet> list = debetRepository.findByPayDateBetweenAndPaidAndContract_Worker_Id(
-                start,
-                end,
-                false,
-                user.getId()
-        );
-//        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdAndPayDateBetweenOrderBy(
-//                false,
-//                user.getId(),
+//        List<Debet> list = debetRepository.findByPayDateBetweenAndPaidAndContract_Worker_Id(
 //                start,
-//                end
+//                end,
+//                false,
+//                user.getId()
 //        );
+        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdAndPayDateBetweenOrderByPayDate(
+                false,
+                user.getId(),
+                start,
+                end
+        );
 
         return new ApiResponse("Jurnal listi", true, list);
     }
