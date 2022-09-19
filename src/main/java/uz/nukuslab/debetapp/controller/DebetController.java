@@ -94,12 +94,15 @@ public class DebetController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @GetMapping("/getJournal")
     public HttpEntity<?> getJournal(@Paydalaniwshi User user){
         ApiResponse apiResponse = debetService.getJournal(user);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
+
+
 
 
 

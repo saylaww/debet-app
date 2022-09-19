@@ -43,7 +43,7 @@ public class ContractService {
         this.companyRepository = companyRepository;
     }
 
-    public ApiResponse addContract(ContractDto contractDto) {
+    public ApiResponse addContract(ContractDto contractDto) throws ParseException {
 
         Optional<Client> byClient = clientRepository.findById(contractDto.getClientId());
         if (!byClient.isPresent()){
@@ -76,20 +76,38 @@ public class ContractService {
             LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
             int dayOfMonth = localDate.getDayOfMonth();
-            int month = localDate.getMonthValue();
+            int month = localDate.getMonthValue()+1;
             int year = localDate.getYear();
 
+
             int count = 1;
-            for (int i = 0; i < contractDto.getPart(); i++) {
+        Timestamp timestamp = savedContract.getCreatedAt();
+
+        int sDay = timestamp.getDate();
+        int sMonth = timestamp.getMonth()+1+1;
+        int sYear = timestamp.getYear()+1900;
+
+        for (int i = 0; i < contractDto.getPart(); i++) {
                 Month monthName = Month.of(month);
 
-                Timestamp timestamp = savedContract.getCreatedAt();
-                timestamp.setMonth(month);
+                String sane = sDay + "/"+sMonth+"/"+sYear;
+
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+            Date date1 = dateFormat.parse(sane);
+            long time = date1.getTime();
+            Timestamp timestamp1 = new Timestamp(time);
+            timestamp1.setHours(timestamp.getHours());
+            timestamp1.setMinutes(timestamp.getMinutes());
+            timestamp1.setSeconds(timestamp.getSeconds());
+
+
+            System.out.println(timestamp.getMonth());
                 debetList.add(new Debet(
                         dayOfMonth + " - " + monthName.toString() + " - " + year,
                         contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
                         contract,
-                        timestamp
+                        timestamp1
                 ));
 
                 boolean b = true;
@@ -97,9 +115,12 @@ public class ContractService {
                     year++;
                     month = 1;
                     b = false;
+                    sMonth=1;
+                    sYear++;
                 }
                 if (b) {
                     month++;
+                    sMonth++;
                 }
             }
 

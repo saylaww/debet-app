@@ -21,9 +21,6 @@ import java.util.Optional;
 @Entity
 public class Debet extends AbsEntity {
 
-//    @Autowired
-//    ContractRepository contractRepository;
-
     @Column(nullable = false)
     private String monthName;
 
