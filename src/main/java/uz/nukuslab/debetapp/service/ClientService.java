@@ -34,7 +34,8 @@ public class ClientService {
     public ApiResponse getMyAll(User user) {
 
 //        List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());
-        List<Client> clients = clientRepository.findByCreatedBy(user.getId());
+//        List<Client> clients = clientRepository.findByCreatedBy(user.getId());
+        List<Client> clients = clientRepository.findByCreatedByOrderByFirstName(user.getId());
 
 
 //            List<Client> clients = clientRepository.findByCompany_Id(user.getCompany().getId());

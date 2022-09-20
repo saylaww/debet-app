@@ -18,6 +18,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
     List<Client> findByCreatedBy(Long createdBy);
 
+    List<Client> findByCreatedByOrderByFirstName(Long createdBy);
+
     boolean existsByPhone(String phone);
     boolean existsByPhoneAndCreatedBy(String phone, Long createdBy);
 
