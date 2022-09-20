@@ -140,6 +140,13 @@ public class DebetService {
                 start,
                 end
         );
+        if(list.isEmpty()){
+            Timestamp nextMonth = new Timestamp(System.currentTimeMillis());
+            int year = nextMonth.getYear()+1900;
+            int month = nextMonth.getMonth()+1;
+            int date = nextMonth.getDate();
+
+        }
 
         return new ApiResponse("Jurnal listi", true, list);
     }

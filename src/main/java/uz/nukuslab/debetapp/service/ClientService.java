@@ -26,7 +26,8 @@ public class ClientService {
     UserRepository userRepository;
 
     public ApiResponse getAll() {
-        List<Client> all = clientRepository.findAll();
+//        List<Client> all = clientRepository.findAll();
+        List<Client> all = clientRepository.findAllByOrderByFirstName();
         return new ApiResponse("Clients", true, all);
     }
 

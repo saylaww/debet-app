@@ -23,6 +23,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
 
 //    List<Client> findByCompany_
 
+    List<Client> findAllByOrderByFirstName();
+
 
 
 
