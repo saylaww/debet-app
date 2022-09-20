@@ -49,7 +49,7 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
     void deleteById(Long integer);
 
 
-    List<Company> findAllByOrderByName();
+//    List<Company> findAllByOrderByName();
 
 
 }

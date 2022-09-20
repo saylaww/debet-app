@@ -163,8 +163,8 @@ check(user);
     }
 
     public ApiResponse getAllUser() {
-//        List<User> all = userRepository.findAll();
-        List<User> all = userRepository.findAllBydOrderByFirstName();
+        List<User> all = userRepository.findAll();
+//        List<User> all = userRepository.findAllBydOrderByFirstName();
         return new ApiResponse("all users", true, all);
     }
 
@@ -193,8 +193,8 @@ check(user);
     }
 
     public ApiResponse getAllByCompanyId(Long id) {
-//        List<User> list = userRepository.findByCompanyId(id);
-        List<User> list = userRepository.findByCompanyIdOrderByFirstName(id);
+        List<User> list = userRepository.findByCompanyId(id);
+//        List<User> list = userRepository.findByCompanyIdOrderByFirstName(id);
         return new ApiResponse("Company list", true, list);
     }
 

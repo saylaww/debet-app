@@ -43,8 +43,8 @@ public class CompanyService {
     }
 
     public ApiResponse getAllCompany() {
-//        Iterable<Company> all = companyRepository.findAll();
-        List<Company> all = companyRepository.findAllByOrderByName();
+        Iterable<Company> all = companyRepository.findAll();
+//        List<Company> all = companyRepository.findAllByOrderByName();
 
 //        List<Company> companies = new ArrayList<>();
 //        for (Company company : all) {

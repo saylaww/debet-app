@@ -66,7 +66,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByUsername(String username);
 
     List<User> findByCompanyId(Long company_id);
-    List<User> findByCompanyIdOrderByFirstName(Long company_id);
+//    List<User> findByCompanyIdOrderByFirstName(Long company_id);
 
     List<User> findByCompany_IdAndRole_RoleName(Long company_id, RoleName role_roleName);
 
@@ -86,6 +86,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findByRole_RoleNameAndCompany_Id(RoleName role_roleName, Long company_id);
 
-    List<User> findAllBydOrderByFirstName();
+//    List<User> findAllBydOrderByFirstName();
 
 }
