@@ -8,10 +8,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import uz.nukuslab.debetapp.entity.Company;
 import uz.nukuslab.debetapp.entity.Role;
+import uz.nukuslab.debetapp.entity.Rule;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.entity.enums.RoleName;
 import uz.nukuslab.debetapp.repository.CompanyRepository;
 import uz.nukuslab.debetapp.repository.RoleRepository;
+import uz.nukuslab.debetapp.repository.RuleRepository;
 import uz.nukuslab.debetapp.repository.UserRepository;
 
 import java.util.Collections;
@@ -30,6 +32,8 @@ public class DataLoader implements CommandLineRunner {
     PasswordEncoder passwordEncoder;
     @Autowired
     CompanyRepository companyRepository;
+    @Autowired
+    RuleRepository ruleRepository;
 
 
     @Override
@@ -94,6 +98,12 @@ public class DataLoader implements CommandLineRunner {
 ////                    bazar,
 //                    admin
 //            ));
+
+            ruleRepository.save(new Rule(
+                   100000,
+                   200000
+            ));
+
 
 
         }
