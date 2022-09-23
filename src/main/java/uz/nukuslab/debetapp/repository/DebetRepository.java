@@ -71,5 +71,7 @@ public interface DebetRepository extends JpaRepository<Debet, Long> {
 
     List<Debet> findByPaidAndContract_Worker_IdAndPayDateBetweenOrderByPayDate(boolean paid, Long contract_worker_id, Timestamp payDate, Timestamp payDate2);
 
+    List<Debet> findByPaidAndContract_Worker_IdOrderByPayDate(boolean paid, Long contract_worker_id);
+
 
 }

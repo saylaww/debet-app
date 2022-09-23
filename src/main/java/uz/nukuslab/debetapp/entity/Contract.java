@@ -45,6 +45,7 @@ public class Contract extends AbsEntity {
     @Column(nullable = false)
     private double percent;
 
+
     @Column(nullable = false)
     private Integer part;
 

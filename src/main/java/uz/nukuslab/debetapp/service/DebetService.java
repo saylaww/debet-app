@@ -134,12 +134,15 @@ public class DebetService {
 //                false,
 //                user.getId()
 //        );
-        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdAndPayDateBetweenOrderByPayDate(
-                false,
-                user.getId(),
-                start,
-                end
-        );
+//        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdAndPayDateBetweenOrderByPayDate(
+//                false,
+//                user.getId(),
+//                start,
+//                end
+//        );
+
+        List<Debet> list = debetRepository.findByPaidAndContract_Worker_IdOrderByPayDate(false, user.getId());
+
         if(list.isEmpty()){
             Timestamp nextMonth = new Timestamp(System.currentTimeMillis());
             int year = nextMonth.getYear()+1900;
