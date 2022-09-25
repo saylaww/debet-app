@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import uz.nukuslab.debetapp.payload.AbsEntity;
 
 import javax.persistence.*;
-import javax.validation.Constraint;
+//import javax.validation.Constraint;
 
 @EqualsAndHashCode(callSuper = true)
 @Data

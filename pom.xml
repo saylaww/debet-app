@@ -91,11 +91,11 @@
 <!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.mapstruct/mapstruct -->
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>1.5.2.Final</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.mapstruct</groupId>-->
+<!--            <artifactId>mapstruct</artifactId>-->
+<!--            <version>1.5.2.Final</version>-->
+<!--        </dependency>-->
 
 
 

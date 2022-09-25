@@ -34,7 +34,7 @@ public class TestController {
     }
 
 
-    @PostMapping("/test")
+    @GetMapping("/test")
     public String test(){
         return "TEST VALUE11";
     }

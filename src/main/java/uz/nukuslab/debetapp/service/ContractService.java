@@ -449,10 +449,16 @@ int year = timestamp.getYear() + 1900;
 
 
     public ApiResponse byNumber(String number, User user) {
-        List<Contract> list = contractRepository.findByClient_PhoneContainingAndWorker_Company_IdAndClient_Company_Id(
+//        List<Contract> list = contractRepository.findByClient_PhoneContainingAndWorker_Company_IdAndClient_Company_Id(
+//                number,
+//                user.getCompany().getId(),
+//                user.getCompany().getId());
+        List<Contract> list = contractRepository.findByClient_PhoneContainingAndWorker_Company_IdAndClient_Company_IdAndWorker_Id(
                 number,
                 user.getCompany().getId(),
-                user.getCompany().getId());
+                user.getCompany().getId(),
+                user.getId()
+        );
         return new ApiResponse("list", true, list);
     }
 
@@ -461,10 +467,15 @@ int year = timestamp.getYear() + 1900;
 //                false,
 //                user.getCompany().getId(),
 //                user.getCompany().getId());
-        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(
+//        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(
+//                false,
+//                user.getCompany().getId(),
+//                user.getCompany().getId());
+        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(
                 false,
                 user.getCompany().getId(),
-                user.getCompany().getId());
+                user.getCompany().getId(),
+                user.getId());
         return new ApiResponse("Contract List No Payed", true, list);
     }
 
@@ -473,16 +484,22 @@ int year = timestamp.getYear() + 1900;
 //                true,
 //                user.getCompany().getId(),
 //                user.getCompany().getId());
-        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(
-                true,
+//        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(
+//                true,
+//                user.getCompany().getId(),
+//                user.getCompany().getId());
+        List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(
+                false,
                 user.getCompany().getId(),
-                user.getCompany().getId());
+                user.getCompany().getId(),
+                user.getId());
         return new ApiResponse("Contract List Payed", true, list);
     }
 
     public ApiResponse getAllContractList(User user) {
 //        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_Id(user.getCompany().getId(), user.getCompany().getId());
-        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId());
+//        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId());
+        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId(),user.getId());
         return new ApiResponse("All Contract list", true, list);
     }
 

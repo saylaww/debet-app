@@ -59,4 +59,7 @@ public class Contract extends AbsEntity {
         this.percent = percent;
         this.part = part;
     }
+
+
+
 }
