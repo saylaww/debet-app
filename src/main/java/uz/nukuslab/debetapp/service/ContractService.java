@@ -46,14 +46,14 @@ public class ContractService {
     public ApiResponse addContract(ContractDto contractDto) throws ParseException {
 
         Optional<Client> byClient = clientRepository.findById(contractDto.getClientId());
-        if (!byClient.isPresent()){
+        if (!byClient.isPresent()) {
             return new ApiResponse("Bunday id li Client tabilmadi!!!", false);
         }
         Client client = byClient.get();
 
 
         Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
-        if (!byWorker.isPresent()){
+        if (!byWorker.isPresent()) {
             return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
         }
         User user = byWorker.get();
@@ -67,30 +67,29 @@ public class ContractService {
                 contractDto.getPart()
         );
 
-//        try {
-            Contract savedContract = contractRepository.save(contract);
+        Contract savedContract = contractRepository.save(contract);
 
-            List<Debet> debetList = new ArrayList<>();
+        List<Debet> debetList = new ArrayList<>();
 
-            Date date = new Date();
-            LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date date = new Date();
+        LocalDate localDate = date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
 
-            int dayOfMonth = localDate.getDayOfMonth();
-            int month = localDate.getMonthValue()+1;
-            int year = localDate.getYear();
+        int dayOfMonth = localDate.getDayOfMonth();
+        int month = localDate.getMonthValue() + 1;
+        int year = localDate.getYear();
 
 
-            int count = 1;
+        int count = 1;
         Timestamp timestamp = savedContract.getCreatedAt();
 
         int sDay = timestamp.getDate();
-        int sMonth = timestamp.getMonth()+1+1;
-        int sYear = timestamp.getYear()+1900;
+        int sMonth = timestamp.getMonth() + 1 + 1;
+        int sYear = timestamp.getYear() + 1900;
 
         for (int i = 0; i < contractDto.getPart(); i++) {
-                Month monthName = Month.of(month);
+            Month monthName = Month.of(month);
 
-                String sane = sDay + "/"+sMonth+"/"+sYear;
+            String sane = sDay + "/" + sMonth + "/" + sYear;
 
             DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -103,46 +102,42 @@ public class ContractService {
 
 
             System.out.println(timestamp.getMonth());
-                debetList.add(new Debet(
-                        dayOfMonth + " - " + monthName.toString() + " - " + year,
-                        contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
-                        contract,
-                        timestamp1
-                ));
+            debetList.add(new Debet(
+                    dayOfMonth + " - " + monthName.toString() + " - " + year,
+                    contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
+                    contract,
+                    timestamp1
+            ));
 
-                boolean b = true;
-                if (month == 12){
-                    year++;
-                    month = 1;
-                    b = false;
-                    sMonth=1;
-                    sYear++;
-                }
-                if (b) {
-                    month++;
-                    sMonth++;
-                }
+            boolean b = true;
+            if (month == 12) {
+                year++;
+                month = 1;
+                b = false;
+                sMonth = 1;
+                sYear++;
             }
+            if (b) {
+                month++;
+                sMonth++;
+            }
+        }
 
-            debetRepository.saveAll(debetList);
+        debetRepository.saveAll(debetList);
 
-            return new ApiResponse("Contract saqlandi", true);
-
-//        }catch (Exception e){
-//            return new ApiResponse("QA'telik", false);
-//        }
+        return new ApiResponse("Contract saqlandi", true);
     }
 
 
-    public void checkDebetList(Long contractId){
+    public void checkDebetList(Long contractId) {
         int count = 0;
         List<Debet> debets = debetRepository.findByContractId(contractId);
         for (Debet debet : debets) {
-            if (!debet.isPaid()){
+            if (!debet.isPaid()) {
                 count++;
             }
         }
-        if (count == 0){
+        if (count == 0) {
             Optional<Contract> byId = contractRepository.findById(contractId);
             Contract contract = byId.get();
             contract.setEnabled(true);
@@ -159,7 +154,7 @@ public class ContractService {
     public ApiResponse getContractReportDayByCompany(User user) {
         Company company = user.getCompany();
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
@@ -180,11 +175,11 @@ public class ContractService {
         return new ApiResponse("Menin' kompaniyamnin' ku'nlik contract lar dizimi!", true, contracts);
     }
 
-    public ApiResponse getContractReportMonthByCompany(User user, String monthNumber,String yearNumber) throws ParseException {
+    public ApiResponse getContractReportMonthByCompany(User user, String monthNumber, String yearNumber) throws ParseException {
         Company company = user.getCompany();
 
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
@@ -224,10 +219,10 @@ public class ContractService {
         return new ApiResponse("Menin' kompaniyamnin' ayliq contractlar listi", true, monthContracts);
     }
 
-    public boolean checkCompany(Company company){
+    public boolean checkCompany(Company company) {
         Optional<Company> byId = companyRepository.findById(company.getId());
         Company comp = byId.get();
-        if (!comp.isActive()){
+        if (!comp.isActive()) {
             return false;
         }
         return true;
@@ -237,7 +232,7 @@ public class ContractService {
         Company company = user.getCompany();
 
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
@@ -285,10 +280,10 @@ public class ContractService {
         return new ApiResponse("Menin' kompaniyamnin' jilliq(godovoy) contractlar listi", true, yearContracts);
     }
 
-    public ApiResponse getMyContractReportDay(User user,String dayNumber) throws ParseException {
+    public ApiResponse getMyContractReportDay(User user, String dayNumber) throws ParseException {
         Company company = user.getCompany();
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
@@ -314,7 +309,7 @@ public class ContractService {
         end.setMinutes(59);
         end.setSeconds(59);
 
-        List<Contract> myDayReport = contractRepository.findByWorkerIdAndCreatedAtBetweenAndWorker_CompanyActive(user.getId(),start, end, true);
+        List<Contract> myDayReport = contractRepository.findByWorkerIdAndCreatedAtBetweenAndWorker_CompanyActive(user.getId(), start, end, true);
 
         return new ApiResponse("Menin' bir ku'nlik esabatim!", true, myDayReport);
     }
@@ -324,7 +319,7 @@ public class ContractService {
         Company company = user.getCompany();
 
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
@@ -377,12 +372,12 @@ public class ContractService {
         Company company = user.getCompany();
 
         boolean check = checkCompany(company);
-        if (!check){
+        if (!check) {
             return new ApiResponse("Sizdin` kompaniyan'iz bloklang'an!!!", false);
         }
 
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-int year = timestamp.getYear() + 1900;
+        int year = timestamp.getYear() + 1900;
         int month = timestamp.getMonth() + 1;
 
         String format = 1 + "/" + 1 + "/" + yearNumber;
@@ -434,7 +429,7 @@ int year = timestamp.getYear() + 1900;
 
     public ApiResponse getContractByCompanyId(Long id) {
         boolean b = companyRepository.existsById(id);
-        if (!b){
+        if (!b) {
             return new ApiResponse("Bunday id li company bazada tabilmadi!!!", false);
         }
         List<Contract> list = contractRepository.findByWorker_CompanyId(id);
@@ -489,7 +484,7 @@ int year = timestamp.getYear() + 1900;
 //                user.getCompany().getId(),
 //                user.getCompany().getId());
         List<Contract> list = contractRepository.findByEnabledAndClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(
-                false,
+                true,
                 user.getCompany().getId(),
                 user.getCompany().getId(),
                 user.getId());
@@ -499,13 +494,13 @@ int year = timestamp.getYear() + 1900;
     public ApiResponse getAllContractList(User user) {
 //        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_Id(user.getCompany().getId(), user.getCompany().getId());
 //        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId());
-        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId(),user.getId());
+        List<Contract> list = contractRepository.findByClient_Company_IdAndWorker_Company_IdAndWorker_IdOrderByCreatedAt(user.getCompany().getId(), user.getCompany().getId(), user.getId());
         return new ApiResponse("All Contract list", true, list);
     }
 
     public ApiResponse getById(Long id) {
         Optional<Contract> byId = contractRepository.findById(id);
-        if (!byId.isPresent()){
+        if (!byId.isPresent()) {
             return new ApiResponse("Bunday id li contract bazada tabilmadi!!!", false);
         }
         Contract contract = byId.get();
@@ -527,9 +522,9 @@ int year = timestamp.getYear() + 1900;
     }
 
     public ApiResponse getMyAllContractBeetwen(User user, String start, String end) throws ParseException {
-        if (start.equals("dan") || start.equals("")){
+        if (start.equals("dan") || start.equals("")) {
 //            start = user.getCreatedAt().toString().substring(0,9);
-            start = user.getCreatedAt().getDate()+"/"+user.getCreatedAt().getMonth()+"/"+user.getCreatedAt().getYear();
+            start = user.getCreatedAt().getDate() + "/" + user.getCreatedAt().getMonth() + "/" + user.getCreatedAt().getYear();
             System.out.println(start);
         }
 
@@ -564,8 +559,8 @@ int year = timestamp.getYear() + 1900;
 
 
     public ApiResponse getMyAllDebetBeetwen(User user, String start, String end) throws ParseException {
-        if (start.equals("dan") || start.equals("")){
-            start = user.getCreatedAt().getDate()+"/"+user.getCreatedAt().getMonth()+"/"+user.getCreatedAt().getYear();
+        if (start.equals("dan") || start.equals("")) {
+            start = user.getCreatedAt().getDate() + "/" + user.getCreatedAt().getMonth() + "/" + user.getCreatedAt().getYear();
             System.out.println(start);
         }
 
@@ -597,5 +592,119 @@ int year = timestamp.getYear() + 1900;
         );
 
         return new ApiResponse("Debet list beetwen by date", true, list);
+    }
+
+    public ApiResponse addContractOld(ContractDto contractDto, String oldDate, Integer payedPart) throws ParseException {
+
+        Optional<Client> byClient = clientRepository.findById(contractDto.getClientId());
+        if (!byClient.isPresent()) {
+            return new ApiResponse("Bunday id li Client tabilmadi!!!", false);
+        }
+        Client client = byClient.get();
+
+
+        Optional<User> byWorker = userRepository.findById(contractDto.getWorkerId());
+        if (!byWorker.isPresent()) {
+            return new ApiResponse("Bunday id li Jumisshi tabilmadi!!!", false);
+        }
+        User user = byWorker.get();
+
+
+//        if (start.equals("dan") || start.equals("")) {
+//            start = user.getCreatedAt().getDate() + "/" + user.getCreatedAt().getMonth() + "/" + user.getCreatedAt().getYear();
+//            System.out.println(start);
+//        }
+
+//        SaneDto saneDto = new SaneDto(start, end);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
+        Date date = dateFormat.parse(oldDate);
+        long time = date.getTime();
+        Timestamp timestampOld = new Timestamp(time);
+
+        timestampOld.setHours(8);
+        timestampOld.setMinutes(0);
+        timestampOld.setSeconds(1);
+
+        Contract contract = new Contract(
+                contractDto.getProductName(),
+                user,
+                contractDto.getPrice(),
+                client,
+                contractDto.getPercent(),
+                contractDto.getPart()
+        );
+        contract.setCreatedAt(timestampOld);
+
+        Contract savedContract = contractRepository.save(contract);
+
+        List<Debet> debetList = new ArrayList<>();
+
+        Date dateCurrent = new Date();
+        LocalDate localDate = dateCurrent.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        int dayOfMonth = localDate.getDayOfMonth();
+        int month = localDate.getMonthValue() + 1;
+        int year = localDate.getYear();
+
+
+        int count = 1;
+//        Timestamp timestamp = savedContract.getCreatedAt();
+
+        int sDay = timestampOld.getDate();
+        int sMonth = timestampOld.getMonth() + 1+1;
+        int sYear = timestampOld.getYear() + 1900;
+
+        int countPay=payedPart;
+        for (int i = 0; i < contractDto.getPart(); i++) {
+            Month monthName = Month.of(sMonth);
+
+            String sane = sDay + "/" + sMonth + "/" + sYear;
+
+            DateFormat dateFormatD = new SimpleDateFormat("dd/MM/yyyy");
+
+            Date date1 = dateFormatD.parse(sane);
+            long timeD = date1.getTime();
+            Timestamp timestamp1 = new Timestamp(timeD);
+            timestamp1.setHours(timestampOld.getHours());
+            timestamp1.setMinutes(timestampOld.getMinutes());
+            timestamp1.setSeconds(timestampOld.getSeconds());
+
+
+//            System.out.println(timestamp.getMonth());
+            Debet debet = new Debet(sDay + " - " + monthName.toString() + " - " + sYear,
+                    contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
+                    contract,
+                    timestamp1);
+//            debetList.add(new Debet(
+//                    sDay + " - " + monthName.toString() + " - " + sYear,
+//                    contractDto.getPrice() / 100 * savedContract.getPercent() + contractDto.getPrice() / contractDto.getPart(),
+//                    contract,
+//                    timestamp1
+//            ));
+            if (count <=payedPart){
+                debet.setPaid(true);
+            }
+            debetList.add(debet);
+
+            boolean b = true;
+            if (sMonth == 12) {
+                year++;
+//                sMonth = 1;
+                b = false;
+                sMonth = 1;
+                sYear++;
+            }
+            if (b) {
+//                month++;
+                sMonth++;
+            }
+            count++;
+        }
+
+
+        debetRepository.saveAll(debetList);
+
+        return new ApiResponse("Contract saqlandi", true);
     }
 }

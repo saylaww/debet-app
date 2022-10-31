@@ -6,12 +6,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import uz.nukuslab.debetapp.annotation.CheckRole;
+import uz.nukuslab.debetapp.entity.Company;
 import uz.nukuslab.debetapp.entity.User;
 import uz.nukuslab.debetapp.entity.enums.RoleName;
 import uz.nukuslab.debetapp.payload.ApiResponse;
+import uz.nukuslab.debetapp.repository.CompanyRepository;
 import uz.nukuslab.debetapp.security.Paydalaniwshi;
 import uz.nukuslab.debetapp.service.CompanyService;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @CrossOrigin
@@ -21,6 +25,19 @@ public class CompanyController {
 
     @Autowired
     CompanyService companyService;
+    @Autowired
+    CompanyRepository companyRepository;
+
+    @GetMapping("/findAll")
+    public HttpEntity<?> findAll(){
+        Iterable<Company> all = companyRepository.findAll();
+        List<Company> companies = new ArrayList<>();
+        for (Company company : all) {
+            companies.add(company);
+        }
+        return ResponseEntity.ok(companies);
+    }
+
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")

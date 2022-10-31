@@ -63,6 +63,16 @@ public class ContractController {
 
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
+    @PostMapping("/addContractOld")
+    public HttpEntity<?> addContractOld(@RequestBody ContractDto contractDto,
+                                        @RequestParam String oldDate,
+                                        @RequestParam Integer payedPart) throws ParseException {
+        ApiResponse apiResponse = contractService.addContractOld(contractDto, oldDate, payedPart);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @CheckRole
+    @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN','ADMIN','USER')")
     @GetMapping("/findByClientPhone")
     public HttpEntity<?> findByClientPhone(@RequestBody ClientPhone cPhone){
         ApiResponse apiResponse = contractService.findByClientPhone(cPhone);

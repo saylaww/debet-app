@@ -3,6 +3,7 @@ package uz.nukuslab.debetapp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ import java.util.*;
 @SpringBootApplication
 @EnableScheduling
 //@Component
-public class DebetAppApplication {
+public class DebetAppApplication extends SpringBootServletInitializer {
 
     @Autowired
     ContractRepository contractRepository;

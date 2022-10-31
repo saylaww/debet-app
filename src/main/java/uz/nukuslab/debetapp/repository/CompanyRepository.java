@@ -43,6 +43,8 @@ public interface CompanyRepository extends CrudRepository<Company, Long> {
 
 
 
+
+
     @CheckRole
     @PreAuthorize(value = "hasAnyAuthority('SUPER_ADMIN')")
     @Override
