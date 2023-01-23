@@ -58,12 +58,12 @@ public class DataLoader implements CommandLineRunner {
                     true
             ));
 //
-//            Company bazar = companyRepository.save(
-//                    new Company(
-//                            "Bazar",
-//                            true
-//                    )
-//            );
+            Company bazar = companyRepository.save(
+                    new Company(
+                            "Bazar",
+                            true
+                    )
+            );
 
 
             userRepository.save(new User(
@@ -80,15 +80,15 @@ public class DataLoader implements CommandLineRunner {
                     true
             ));
 
-//            userRepository.save(new User(
-//                    "Jaras",
-//                    "Amirov",
-//                    "user",
-//                    passwordEncoder.encode("456"),
-//                    "+123456789",
-////                    bazar,
-//                    user
-//            ));
+            userRepository.save(new User(
+                    "Jaras",
+                    "Amirov",
+                    "user",
+                    passwordEncoder.encode("456"),
+                    "+123456789",
+                    bazar,
+                    user
+            ));
 //            userRepository.save(new User(
 //                    "Orash",
 //                    "Qutlimuratov",

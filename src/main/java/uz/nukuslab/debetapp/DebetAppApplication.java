@@ -23,8 +23,8 @@ import java.util.*;
 
 @SpringBootApplication
 @EnableScheduling
-//@Component
-public class DebetAppApplication extends SpringBootServletInitializer {
+@Component
+public class DebetAppApplication {
 
     @Autowired
     ContractRepository contractRepository;
@@ -36,7 +36,6 @@ public class DebetAppApplication extends SpringBootServletInitializer {
     public static void main(String[] args) {
         SpringApplication.run(DebetAppApplication.class, args);
     }
-
 
 //    @Scheduled(cron = "0 " + Constatns.SEND_MONTH_MINUTE + " " + Constatns.SEND_MONTH_HOUR + " * * *")
     @Scheduled(cron = "1 0 0 1 * *")
